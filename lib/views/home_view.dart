@@ -10,7 +10,6 @@ class HomeView extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-
             Stack(
               children: <Widget>[
                 Container(
@@ -40,7 +39,7 @@ class HomeView extends StatelessWidget {
                 ),
 
                 Container(
-                  padding: EdgeInsets.fromLTRB(23,100, 20, 0),
+                  padding: EdgeInsets.fromLTRB(23, 100, 20, 0),
                   child: StrokeText(
                     text: 'Magsasaka!',
                     textStyle: TextStyle(
@@ -50,6 +49,14 @@ class HomeView extends StatelessWidget {
                       color: Color(0xFF4F6F52),
                     ),
                     strokeColor: Colors.white,
+                  ),
+                ),
+
+                Container(
+                  padding: EdgeInsets.fromLTRB(25, 210, 20, 0),
+                  child: Text(
+                    "Tara na't magscan ng mga pananim!",
+                    style: TextStyle(fontSize: 16, color: Colors.black),
                   ),
                 ),
 
@@ -95,7 +102,7 @@ class HomeView extends StatelessWidget {
                 ),
 
                 Container(
-                  padding: EdgeInsets.fromLTRB(25, 115, 20, 0),
+                  padding: EdgeInsets.fromLTRB(25, 120, 20, 0),
                   child: Container(
                     height: 120,
                     width: 120,
@@ -105,16 +112,34 @@ class HomeView extends StatelessWidget {
                       ),
                     ),
                   ),
+                ),
+              ],
+            ),
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                Container(
+                  width: 165,
+                  height: 170,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                      color: Colors.grey
+                  ),
+                ),
+
+
+                Container(
+                  width: 160,
+                  height: 170,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Colors.grey
+                  ),
                 )
 
-
-                ,
               ],
-            )
-
-
-
-            ,
+            ),
           ],
         ),
       ),
