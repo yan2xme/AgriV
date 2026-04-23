@@ -41,14 +41,14 @@ class _MainMenuState extends State<MainMenu> {
           child: BottomNavigationBar(
             backgroundColor: Color(0xFFF0F0F0),
             items: const <BottomNavigationBarItem>[
-              BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+              BottomNavigationBarItem(icon: Icon(Icons.home), label: 'HOME'),
               BottomNavigationBarItem(
                 icon: Icon(Icons.history),
-                label: 'History',
+                label: 'HISTORY',
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.energy_savings_leaf),
-                label: 'Library',
+                label: 'LIBRARY',
               ),
             ],
             currentIndex: _currentIndex,
