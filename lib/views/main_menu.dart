@@ -30,17 +30,31 @@ class _MainMenuState extends State<MainMenu> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _screens[_currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.history), label: 'History'),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.energy_savings_leaf),
-            label: 'Library',
+
+      bottomNavigationBar: ClipRRect(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(30),
+          topRight: Radius.circular(30),
+        ),
+        child: Container(
+          padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+          child: BottomNavigationBar(
+            backgroundColor: Color(0xFFF0F0F0),
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.history),
+                label: 'History',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.energy_savings_leaf),
+                label: 'Library',
+              ),
+            ],
+            currentIndex: _currentIndex,
+            onTap: _onItemTapped,
           ),
-        ],
-        currentIndex: _currentIndex,
-        onTap: _onItemTapped,
+        ),
       ),
     );
   }

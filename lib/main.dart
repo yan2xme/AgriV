@@ -15,9 +15,9 @@ class MyApp extends StatelessWidget {
       title: 'AgriVysor',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
+        colorScheme: ColorScheme.fromSeed(seedColor: Color(0xFF4F6F52)),
         useMaterial3: true,
-        fontFamily: 'Arial',
+        fontFamily: 'Space Grotesk',
       ),
 
       home: MainMenu(),

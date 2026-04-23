@@ -10,6 +10,7 @@ class HomeView extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
+
             Stack(
               children: <Widget>[
                 Container(
@@ -39,11 +40,12 @@ class HomeView extends StatelessWidget {
                 ),
 
                 Container(
-                  padding: EdgeInsets.fromLTRB(18, 100, 20, 0),
+                  padding: EdgeInsets.fromLTRB(23,100, 20, 0),
                   child: StrokeText(
                     text: 'Magsasaka!',
                     textStyle: TextStyle(
-                      fontSize: 44,
+                      fontFamily: 'Space Grotesk',
+                      fontSize: 48,
                       fontWeight: FontWeight.bold,
                       color: Color(0xFF4F6F52),
                     ),
@@ -79,10 +81,11 @@ class HomeView extends StatelessWidget {
                 ),
 
                 Container(
-                  padding: EdgeInsets.fromLTRB(20, 80, 20, 0),
+                  padding: EdgeInsets.fromLTRB(25, 80, 20, 0),
                   child: StrokeText(
                     text: 'Magandang araw,',
                     textStyle: TextStyle(
+                      fontFamily: 'Space Grotesk',
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
                       color: Color(0xFF4F6F52),
@@ -90,8 +93,28 @@ class HomeView extends StatelessWidget {
                     strokeColor: Colors.white,
                   ),
                 ),
+
+                Container(
+                  padding: EdgeInsets.fromLTRB(25, 115, 20, 0),
+                  child: Container(
+                    height: 120,
+                    width: 120,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage('lib/views/assets/magsasaka.png'),
+                      ),
+                    ),
+                  ),
+                )
+
+
+                ,
               ],
-            ),
+            )
+
+
+
+            ,
           ],
         ),
       ),
