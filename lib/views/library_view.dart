@@ -6,7 +6,20 @@ class LibraryView extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('AgriVysor Library')),
+        appBar: AppBar(
+          toolbarHeight: 80,
+          backgroundColor: Color(0xFFF0F0F0),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                ('lib/views/assets/logo.png'),
+                fit: BoxFit.contain,
+                height: 32,
+              ),
+            ],
+          ),
+        )
     );
   }
 }

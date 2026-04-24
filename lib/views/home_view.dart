@@ -303,11 +303,8 @@ class HomeView extends StatelessWidget {
                 child: ListView(
                   scrollDirection: Axis.horizontal,
                   children: [
-                    DiseaseCard(name: 'Banana Sigatoka', date: '2hrs Ago', severity: 'HIGH RISK'),
-                    SizedBox(width: 12,),
-                    DiseaseCard(name: 'Banana Sigatoka', date: '2hrs Ago', severity: 'HIGH RISK'),
-                    SizedBox(width: 12,),
-                    DiseaseCard(name: 'Banana Sigatoka', date: '2hrs Ago', severity: 'HIGH RISK')
+                    DiseaseCard(name: 'Banana Sigatoka', date: '2hrs Ago', severity: 'HIGH RISK', layoutType: CardType.homePageRecent,),
+                    SizedBox(width: 12),
                   ],
                 ),
               )
