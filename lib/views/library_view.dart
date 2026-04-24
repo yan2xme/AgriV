@@ -23,36 +23,34 @@ class LibraryView extends StatelessWidget{
           ),
         ),
 
-      body: Container(
-        child: ListView(
-          children: [
-            Container(
-              padding: EdgeInsets.fromLTRB(20, 10, 0, 0),
-              width: double.maxFinite,
-              height: double.maxFinite,
-              child: ListView(
-                scrollDirection: Axis.vertical,
-                children: [
-                  DiseaseCard(
-                    name: 'Banana Sigatoka',
-                    description: 'Lorem ipsum ditum sit dolor ametahaha Lorem ipsum ditum sit dolor ametahaha tabang mga langit please Lorem ipsum ditum sit dolor amet ahaha tabang mga langit please ',
-                    severity: 'HIGH RISK',
-                    layoutType: CardType.diseaseLibrary,
-                    confidence: 67.69,),
-                  SizedBox(height: 12,),
-                  DiseaseCard(
-                    name: 'Banana Sigatoka',
-                    description: 'Lorem ipsum ditum sit dolor ametahaha Lorem ipsum ditum sit dolor ametahaha tabang mga langit please Lorem ipsum ditum sit dolor amet ahaha tabang mga langit please ',
-                    severity: 'HIGH RISK',
-                    layoutType: CardType.diseaseLibrary,
-                    confidence: 67.69,),
-                  SizedBox(height: 12,)
-                ],
-              ),
-            )
+      body: ListView(
+        children: [
+          Container(
+            padding: EdgeInsets.fromLTRB(20, 10, 0, 0),
+            width: double.maxFinite,
+            height: double.maxFinite,
+            child: ListView(
+              scrollDirection: Axis.vertical,
+              children: [
+                DiseaseCard(
+                  name: 'Banana Sigatoka',
+                  description: 'Lorem ipsum ditum sit dolor ametahaha Lorem ipsum ditum sit dolor ametahaha tabang mga langit please Lorem ipsum ditum sit dolor amet ahaha tabang mga langit please ',
+                  severity: 'HIGH RISK',
+                  layoutType: CardType.diseaseLibrary,
+                  confidence: 67.69,),
+                SizedBox(height: 12,),
+                DiseaseCard(
+                  name: 'Banana Sigatoka',
+                  description: 'Lorem ipsum ditum sit dolor ametahaha Lorem ipsum ditum sit dolor ametahaha tabang mga langit please Lorem ipsum ditum sit dolor amet ahaha tabang mga langit please ',
+                  severity: 'HIGH RISK',
+                  layoutType: CardType.diseaseLibrary,
+                  confidence: 67.69,),
+                SizedBox(height: 12,)
+              ],
+            ),
+          )
 
-          ],
-        ),
+        ],
       ),
     );
   }
