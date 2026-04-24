@@ -5,10 +5,10 @@ enum CardType { homePageRecent, diseaseLibrary, historyPage, diagnosticResult }
 
 class DiseaseCard extends StatelessWidget {
   final String name;
-  final String? description;
   final String? date;
   final String? severity;
   final double? confidence;
+  final String? description;
   final CardType layoutType;
 
   const DiseaseCard({
@@ -19,7 +19,7 @@ class DiseaseCard extends StatelessWidget {
     this.date,
     this.severity,
     this.confidence,
-    this.description,
+    this.description
   });
 
   @override
@@ -132,10 +132,144 @@ class DiseaseCard extends StatelessWidget {
           ],
         );
 
-      ///2
+      ///2library
       case CardType.diseaseLibrary:
-        // TODO: Handle this case.
-        throw UnimplementedError();
+       return Stack(
+         children: <Widget>[
+           Container(
+             width: 370,
+             height: 255,
+             decoration: BoxDecoration(
+               borderRadius: BorderRadius.circular(20),
+               boxShadow: [
+                 BoxShadow(
+                   color: Colors.grey.withValues(alpha: .2),
+                   spreadRadius: 1,
+                   blurRadius: 7,
+                   offset: Offset(0, 4),
+                 ),
+               ],
+             ),
+           ),
+
+           Container(
+             width: 370,
+             height: 255,
+             decoration: BoxDecoration(
+               borderRadius: BorderRadius.circular(20),
+               color: Colors.white,
+             ),
+           ),
+
+           Container(
+             width: 370,
+             height: 130,
+             decoration: BoxDecoration(
+               image: DecorationImage(
+                 image: AssetImage('lib/views/assets/example.jpg'),
+                 fit: BoxFit.cover,
+               ),
+               borderRadius: BorderRadius.only(
+                 topLeft: Radius.circular(20),
+                 topRight: Radius.circular(20),
+               ),
+             ),
+           ),
+
+           Container(
+             padding: EdgeInsets.fromLTRB(20, 150, 20, 0),
+             child: Text(
+               name,
+               style: TextStyle(
+                 fontSize: 20,
+                 height: 0.9,
+                 fontWeight: FontWeight.w800,
+                 color: Color(0xFF4F6F52),
+               ),
+             ),
+           ),
+
+           Container(
+             padding: EdgeInsets.fromLTRB(20, 175, 55, 0),
+             child: Text(
+               description!,
+               maxLines: 3,
+               overflow: TextOverflow.ellipsis,
+               style: TextStyle(
+                 fontSize: 12,
+                 height: 1.2,
+                 fontWeight: FontWeight.w800,
+                 color: Color(0xFF757776),
+               ),
+             ),
+           ),
+
+           Container(
+             padding: EdgeInsets.fromLTRB(20, 225, 20, 0),
+             child: Text(
+              'View Details',
+               style: TextStyle(
+                 fontSize: 12,
+                 height: 1.2,
+                 fontWeight: FontWeight.w500,
+                 color: Color(0xFF757776),
+               ),
+             ),
+           ),
+
+           Container(
+             margin: EdgeInsets.fromLTRB(100, 227, 0, 0),
+             width: 12,
+             height: 12,
+             decoration: BoxDecoration(
+               image: DecorationImage(
+                 image: AssetImage('lib/views/assets/next.png'),
+               ),
+             ),
+           ),
+
+
+           Container(
+             margin: EdgeInsets.fromLTRB(170, 110, 0, 0),
+             width: 12,
+             height: 12,
+             decoration: BoxDecoration(
+               image: DecorationImage(
+                 image: AssetImage('lib/views/assets/next.png'),
+               ),
+             ),
+           ),
+
+           Container(
+             margin: EdgeInsets.fromLTRB(273, 150, 0, 0),
+             width: 75,
+             height: 20,
+             decoration: BoxDecoration(
+               borderRadius: BorderRadius.all(Radius.circular(20)),
+               color: Color(0xFFFFE1E1),
+             ),
+           ),
+
+           Container(
+             margin: EdgeInsets.fromLTRB(280,150, 0, 0),
+             child: Text(
+               severity!,
+               style: TextStyle(
+                 fontWeight: FontWeight.bold,
+                 fontSize: 12,
+                 color: Color(0xFFCC0000),
+               ),
+             ),
+           ),
+
+
+
+         ],
+       );
+
+
+
+
 
       ///3
       case CardType.historyPage:
@@ -281,7 +415,7 @@ class DiseaseCard extends StatelessWidget {
               margin: EdgeInsets.fromLTRB(270, 60, 20, 0),
               child: RichText(
                 text: TextSpan(
-                  text: (confidence.toString()+'%'),
+                  text: ('$confidence%'),
                   style: TextStyle(
                     fontSize: 18,
                     height: 1,
