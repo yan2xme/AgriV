@@ -1,11 +1,7 @@
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
-enum CardType{
-  homePageRecent,
-  diseaseLibrary,
-  historyPage,
-  diagnosticResult
-}
+enum CardType { homePageRecent, diseaseLibrary, historyPage, diagnosticResult }
 
 class DiseaseCard extends StatelessWidget {
   final String name;
@@ -29,8 +25,6 @@ class DiseaseCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     switch (layoutType) {
-      
-      
       ///1
       case CardType.homePageRecent:
         return Stack(
@@ -115,37 +109,35 @@ class DiseaseCard extends StatelessWidget {
             ),
 
             Container(
-              margin: EdgeInsets.fromLTRB(120,10,0,0),
+              margin: EdgeInsets.fromLTRB(120, 10, 0, 0),
               width: 75,
               height: 20,
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(20)),
-                  color: Color(0xFFFFE1E1)
+                borderRadius: BorderRadius.all(Radius.circular(20)),
+                color: Color(0xFFFFE1E1),
               ),
             ),
 
             Container(
-              margin: EdgeInsets.fromLTRB(128,11,0,0),
-              child: Text(severity!,
+              margin: EdgeInsets.fromLTRB(128, 11, 0, 0),
+              child: Text(
+                severity!,
                 style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 12,
-                    color: Color(0xFFCC0000)
-                ),),
-            )
-
-
+                  fontWeight: FontWeight.bold,
+                  fontSize: 12,
+                  color: Color(0xFFCC0000),
+                ),
+              ),
+            ),
           ],
         );
 
-
-
-        ///2
+      ///2
       case CardType.diseaseLibrary:
         // TODO: Handle this case.
         throw UnimplementedError();
-       
-        ///3
+
+      ///3
       case CardType.historyPage:
         return Stack(
           children: <Widget>[
@@ -175,7 +167,7 @@ class DiseaseCard extends StatelessWidget {
             ),
 
             Container(
-              margin: EdgeInsets.fromLTRB(18, 18, 0,0),
+              margin: EdgeInsets.fromLTRB(18, 18, 0, 0),
               width: 100,
               height: 100,
               decoration: BoxDecoration(
@@ -219,31 +211,91 @@ class DiseaseCard extends StatelessWidget {
             ),
 
             Container(
-              margin: EdgeInsets.fromLTRB(140,65,0,0),
+              margin: EdgeInsets.fromLTRB(140, 65, 0, 0),
               width: 75,
               height: 20,
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(20)),
-                  color: Color(0xFFFFE1E1)
+                borderRadius: BorderRadius.all(Radius.circular(20)),
+                color: Color(0xFFFFE1E1),
               ),
             ),
 
             Container(
-              margin: EdgeInsets.fromLTRB(150,65,0,0),
-              child: Text(severity!,
+              margin: EdgeInsets.fromLTRB(150, 65, 0, 0),
+              child: Text(
+                severity!,
                 style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 12,
-                    color: Color(0xFFCC0000)
-                ),),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 12,
+                  color: Color(0xFFCC0000),
+                ),
+              ),
+            ),
+
+            Container(
+              margin: EdgeInsets.fromLTRB(250, 15, 0, 0),
+              width: 100,
+              height: 100,
+              child: PieChart(
+                PieChartData(
+                  startDegreeOffset: 360,
+                  sections: [
+                    PieChartSectionData(
+                      value: 100 - confidence!,
+                      radius: 15,
+                      showTitle: false,
+                      color: Colors.grey,
+                    ),
+                    PieChartSectionData(
+                      value: confidence,
+                      radius: 15,
+                      showTitle: false,
+                      color: Colors.green,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+
+
+
+            Container(
+              width: 70,
+              margin: EdgeInsets.fromLTRB(270, 48, 20, 0),
+              child: RichText(
+                text: TextSpan(
+                  text: ('Confidence:'),
+                  style: TextStyle(
+                    fontSize: 10,
+                    height: 1,
+                    fontFamily: 'Space Grotesk',
+                    fontWeight: FontWeight.w500,
+                    color: Color(0xFF757776),
+                  ),
+                ),
+              ),
+            ),
+
+            Container(
+              width: 70,
+              margin: EdgeInsets.fromLTRB(270, 60, 20, 0),
+              child: RichText(
+                text: TextSpan(
+                  text: (confidence.toString()+'%'),
+                  style: TextStyle(
+                    fontSize: 18,
+                    height: 1,
+                    fontFamily: 'Space Grotesk',
+                    fontWeight: FontWeight.w500,
+                    color: Color(0xFF757776),
+                  ),
+                ),
+              ),
             )
 
 
           ],
         );
-
-
-
 
       case CardType.diagnosticResult:
         // TODO: Handle this case.
