@@ -81,18 +81,11 @@ class HistoryView extends StatelessWidget {
                     confidence: 67.69),
                 SizedBox(height: 12,),
                 DiseaseCard(
-                    name: 'Banana Sigatoka',
-                    date: '2hrs Ago',
-                    severity: 'HIGH RISK',
+                    name: 'BananaShits',
+                    date: '6/7/2026',
+                    severity: 'LowRisk RISK',
                     layoutType: CardType.historyPage,
-                    confidence: 67.69),
-                DiseaseCard(
-                    name: 'Banana Sigatoka',
-                    date: '2hrs Ago',
-                    severity: 'HIGH RISK',
-                    layoutType: CardType.historyPage,
-                    confidence: 67.69)
-
+                    confidence: 66.5)
               ],
             ),
           )
