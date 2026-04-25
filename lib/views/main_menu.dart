@@ -1,5 +1,5 @@
+import 'package:agrivysor_ryzen/views/diagnostic_result.dart';
 import 'package:flutter/material.dart';
-
 import 'history_view.dart';
 import 'home_view.dart';
 import 'library_view.dart';
@@ -17,7 +17,8 @@ class _MainMenuState extends State<MainMenu> {
   final List<Widget> _screens = [
     const HomeView(), //0
     const HistoryView(), //1
-    const LibraryView(), //2
+    const LibraryView(),
+    const DiagnosticResult()//2
   ];
 
   void _onItemTapped(int index) {
@@ -39,6 +40,7 @@ class _MainMenuState extends State<MainMenu> {
         child: Container(
           padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
           child: BottomNavigationBar(
+            type: BottomNavigationBarType.fixed,
             backgroundColor: Color(0xFFF0F0F0),
             items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(icon: Icon(Icons.home), label: 'HOME'),
@@ -50,6 +52,10 @@ class _MainMenuState extends State<MainMenu> {
                 icon: Icon(Icons.energy_savings_leaf),
                 label: 'LIBRARY',
               ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.health_and_safety),
+                label: 'DIAGNOSTIC',
+              )
             ],
             currentIndex: _currentIndex,
             onTap: _onItemTapped,
