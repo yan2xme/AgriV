@@ -1,59 +1,120 @@
 import 'package:flutter/material.dart';
-import 'components/disease_card.dart';
+import 'package:camerawesome/camerawesome_plugin.dart';
+import 'package:liquid_glass_renderer/liquid_glass_renderer.dart';
 
 class PhotoCapture extends StatelessWidget {
   const PhotoCapture({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Stack(
-      fit: StackFit.expand,
-      children: [
-        // Layer 1: The Background (Your Camera Preview or a Placeholder Image)
-        Image.asset('assets/placeholder_oblation.jpg', fit: BoxFit.cover),
+  Widget build(BuildContext context) => CameraAwesomeBuilder.custom(
+    saveConfig: .photo(),
+    builder: (cameraState, preview) {
+      // Return your UI (a Widget)
+      return cameraState.when(
+        onPreparingCamera: (state) =>
+            const Center(child: CircularProgressIndicator()),
+        onPhotoMode: (state) => takePhotoUI(state),
+      );
+    },
+  );
 
-        // Layer 2: The Top "Detect" Pill
-        Positioned(
-          top: 60, // Adjust for status bar
-          left: 0,
-          right: 0,
-          child: Center(
-            child: Container(
+  Widget takePhotoUI(PhotoCameraState state) => Stack(
+    children: [
+      Positioned(
+        top: 60,
+        left: 0,
+        right: 0,
+        child: Center(
+          child: LiquidGlassLayer(
+            child: LiquidGlass(
+              shape: LiquidRoundedSuperellipse(borderRadius: 30),
+              child: Stack(
+                children: [
+                  Container(
+                    padding: EdgeInsets.only(top: 2),
+                    width: 100,
+                    height: 40,
+                  ),
+                  Container(
+                    padding: EdgeInsets.fromLTRB(20, 8, 0, 0),
+                    child: Text(
+                      'DETECT',
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.white,
+                        fontFamily: 'Space Grotesk',
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
+      ),
 
-        // Layer 3: The Bottom Controls (Flashlight & Capture)
-        Positioned(
-          bottom: 40,
-          left: 0,
-          right: 0,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              // Flashlight Button
-              IconButton(
-                iconSize: 30,
-                icon: Icon(Icons.flash_on), onPressed: () {  },
-              ),
+      Positioned(
+        bottom: 50,
+        left: -10,
+        right: 0,
 
-              // That massive Green Capture Button
-              GestureDetector(
-                onTap: () {
-                  // YOUR ROUTING LOGIC GOES HERE
-                },
-                child: Container(
-                  // Green circle with a white border
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            LiquidGlassLayer(
+              child: LiquidGlass(
+                shape: LiquidRoundedSuperellipse(borderRadius: 30),
+                child: IconButton(
+                  iconSize: 30,
+                  icon: Icon(Icons.flash_on),
+                  color: Colors.white,
+                  onPressed: () {},
                 ),
               ),
+            ),
 
-              // An empty SizedBox here helps perfectly center the green button
-              // if your flashlight is only on the left side
-              const SizedBox(width: 48),
-            ],
-          ),
+            GestureDetector(
+              onTap: () {},
+              child: Stack(
+                children: [
+                  Container(
+                    width: 110,
+                    height: 110,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        stops: [0.0, 1.0],
+                        colors: [
+                          Colors.green.shade400,
+                          Colors.green.shade200,
+                        ],
+                      ),
+                        borderRadius: BorderRadius.circular(100)
+                    ),
+                  ),
+
+                  ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      padding: EdgeInsets.all(35),
+                      iconSize: 40,
+                      shape: CircleBorder(),
+                      backgroundColor: Colors.transparent, // <-- Splash color
+                    ),
+                    child: Icon(Icons.camera, color: Colors.white),
+                  ),
+                ],
+              ),
+            ),
+
+            // An empty SizedBox here helps perfectly center the green button
+            // if your flashlight is only on the left side
+            const SizedBox(width: 48),
+          ],
         ),
-      ],
-    );
-  }
+      ),
+    ],
+  );
 }
