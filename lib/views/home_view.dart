@@ -1,3 +1,4 @@
+import 'package:agrivysor_ryzen/views/photo_capture.dart';
 import 'package:flutter/material.dart';
 import 'package:stroke_text/stroke_text.dart';
 import 'components/disease_card.dart';
@@ -7,7 +8,6 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -125,67 +125,79 @@ class HomeView extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  Container(
-                    width: 165,
-                    height: 170,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Color(0xFFF2F2F2),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(20, 20, 0, 0),
-                      child: Stack(
-                        children: <Widget>[
-                          Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Color(0xFFCBFFDD),
-                            ),
-                            width: 45,
-                            height: 45,
-                          ),
 
-                          Container(
-                            height: 30,
-                            width: 30,
-                            margin: const EdgeInsets.fromLTRB(8, 8, 0, 0),
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: AssetImage('lib/views/assets/scan.png'),
+
+
+                  //first button
+
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const PhotoCapture(),
+                      ),
+                      );
+                    },
+                    child: Container(
+                      width: 165,
+                      height: 170,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: Color(0xFFF2F2F2),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(20, 20, 0, 0),
+                        child: Stack(
+                          children: <Widget>[
+                            Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: Color(0xFFCBFFDD),
                               ),
+                              width: 45,
+                              height: 45,
                             ),
-                          ),
 
-                          Container(
-                            padding: EdgeInsets.fromLTRB(0, 50, 0, 0),
-                            child: Text(
-                              "I-Scan sa Camera",
-                              style: TextStyle(
-                                fontSize: 20,
-                                height: 0.9,
-                                fontWeight: FontWeight.w800,
-                                color: Color(0xFF4F6F52),
-                              ),
-                            ),
-                          ),
-
-                          Container(
-                            padding: EdgeInsets.fromLTRB(0, 115, 0, 0),
-                            width: 80,
-                            child: RichText(
-                              text: TextSpan(
-                                text: "Realtime na AI Scanning",
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  height: 1,
-                                  fontFamily: 'Space Grotesk',
-                                  fontWeight: FontWeight.w500,
-                                  color: Color(0xFF757776),
+                            Container(
+                              height: 30,
+                              width: 30,
+                              margin: const EdgeInsets.fromLTRB(8, 8, 0, 0),
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: AssetImage('lib/views/assets/scan.png'),
                                 ),
                               ),
                             ),
-                          ),
-                        ],
+
+                            Container(
+                              padding: EdgeInsets.fromLTRB(0, 50, 0, 0),
+                              child: Text(
+                                "I-Scan sa Camera",
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  height: 0.9,
+                                  fontWeight: FontWeight.w800,
+                                  color: Color(0xFF4F6F52),
+                                ),
+                              ),
+                            ),
+
+                            Container(
+                              padding: EdgeInsets.fromLTRB(0, 115, 0, 0),
+                              width: 80,
+                              child: RichText(
+                                text: TextSpan(
+                                  text: "Realtime na AI Scanning",
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    height: 1,
+                                    fontFamily: 'Space Grotesk',
+                                    fontWeight: FontWeight.w500,
+                                    color: Color(0xFF757776),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -290,24 +302,28 @@ class HomeView extends StatelessWidget {
                       fontWeight: FontWeight.w700,
                       color: Color(0xFF4F6F52),
                     ),
-                  )
-
+                  ),
                 ],
               ),
             ),
 
             Container(
-              padding: EdgeInsets.fromLTRB(20,0,20,0),
+              padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
               width: double.infinity,
               height: 150,
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: [
-                    DiseaseCard(name: 'Banana Sigatoka', date: '2hrs Ago', severity: 'HIGH RISK', layoutType: CardType.homePageRecent),
-                    SizedBox(width: 12),
-                  ],
-                ),
-              )
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: [
+                  DiseaseCard(
+                    name: 'Banana Sigatoka',
+                    date: '2hrs Ago',
+                    severity: 'HIGH RISK',
+                    layoutType: CardType.homePageRecent,
+                  ),
+                  SizedBox(width: 12),
+                ],
+              ),
+            ),
           ],
         ),
       ),

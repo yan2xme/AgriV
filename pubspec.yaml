@@ -40,6 +40,8 @@ dependencies:
   gpt_markdown: ^1.1.6
   stroke_text: ^1.0.0
   fl_chart: ^1.2.0
+  liquid_glass_renderer: ^0.2.0-dev.4
+  camerawesome: ^2.5.0
 
 dev_dependencies:
   flutter_test:
