@@ -42,6 +42,8 @@ dependencies:
   fl_chart: ^1.2.0
   liquid_glass_renderer: ^0.2.0-dev.4
   camerawesome: ^2.5.0
+  timeline_tile: ^2.0.0
+  tab_container: ^3.5.3
 
 dev_dependencies:
   flutter_test:
@@ -64,6 +66,10 @@ flutter:
     - family: Space Grotesk
       fonts:
         - asset: lib/views/assets/font/SpaceGrotesk-VariableFont_wght.ttf
+
+    - family: AgriVIcons
+      fonts:
+        - asset: lib/views/assets/icons/AgriVIcons.ttf
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

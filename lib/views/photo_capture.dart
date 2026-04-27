@@ -11,8 +11,6 @@ class PhotoCapture extends StatelessWidget {
     builder: (cameraState, preview) {
       // Return your UI (a Widget)
       return cameraState.when(
-        onPreparingCamera: (state) =>
-            const Center(child: CircularProgressIndicator()),
         onPhotoMode: (state) => takePhotoUI(state),
       );
     },
