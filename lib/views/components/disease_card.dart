@@ -10,9 +10,11 @@ class DiseaseCard extends StatelessWidget {
   final double? confidence;
   final String? description;
   final CardType layoutType;
+  final bool isFromScanner;
 
   const DiseaseCard({
     super.key,
+    this.isFromScanner = true,
     required this.name,
     required this.layoutType,
 
@@ -81,6 +83,8 @@ class DiseaseCard extends StatelessWidget {
                 ),
               ),
             ),
+
+
             Container(
               padding: EdgeInsets.fromLTRB(20, 110, 20, 0),
               child: RichText(
@@ -452,7 +456,7 @@ class DiseaseCard extends StatelessWidget {
 
             Container(
               margin: EdgeInsets.fromLTRB(40, 18, 0, 0),
-              width: 140,
+              width: isFromScanner ? 140 : 300,
               height: 140,
               decoration: BoxDecoration(
                 image: DecorationImage(
@@ -479,6 +483,7 @@ class DiseaseCard extends StatelessWidget {
             ),
 
 
+            if (isFromScanner)
             Container(
               padding: EdgeInsets.fromLTRB(135, 250, 20, 0),
               child: RichText(
@@ -529,6 +534,8 @@ class DiseaseCard extends StatelessWidget {
               ),
             ),
 
+
+            if (isFromScanner)
             Container(
               margin: EdgeInsets.fromLTRB(200, 15, 0, 0),
               width: 140,
@@ -554,6 +561,7 @@ class DiseaseCard extends StatelessWidget {
               ),
             ),
 
+            if (isFromScanner)
             Container(
               width: 400,
               padding: EdgeInsets.fromLTRB(225, 60, 20, 0),
@@ -571,6 +579,7 @@ class DiseaseCard extends StatelessWidget {
               ),
             ),
 
+            if (isFromScanner)
             Container(
               width: 400,
               padding: EdgeInsets.fromLTRB(225, 80, 20, 0),

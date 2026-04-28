@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'components/disease_card.dart';
+import 'diagnostic_result.dart';
 
 class HistoryView extends StatelessWidget {
   const HistoryView({super.key});
@@ -23,7 +24,6 @@ class HistoryView extends StatelessWidget {
       ),
       body: Column(
         children: <Widget>[
-
           Container(
             margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
             child: Stack(
@@ -46,11 +46,10 @@ class HistoryView extends StatelessWidget {
                       color: Color(0xFF4F6F52),
                     ),
                   ),
-                )
-              ]
+                ),
+              ],
             ),
           ),
-
 
           Container(
             padding: EdgeInsets.fromLTRB(20, 10, 0, 0),
@@ -59,30 +58,31 @@ class HistoryView extends StatelessWidget {
             child: ListView(
               scrollDirection: Axis.vertical,
               children: [
-                DiseaseCard(
+                GestureDetector(
+                  onTap: () {
+                    // Put this on your Library Card's onTap:
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const DiagnosticResult(
+                          isFromScanner:
+                              true, // <-- This turns off the scanner UI!
+                        ),
+                      ),
+                    );
+                  },
+                  child: DiseaseCard(
                     name: 'Banana Sigatoka',
                     date: '2hrs Ago',
                     severity: 'HIGH RISK',
                     layoutType: CardType.historyPage,
-                    confidence: 67.69,),
-                SizedBox(height: 12,),
-                DiseaseCard(
-                    name: 'Banana Sigatoka',
-                    date: '2hrs Ago',
-                    severity: 'HIGH RISK',
-                    layoutType: CardType.historyPage,
-                    confidence: 67.69,),
-                SizedBox(height: 12,),
-                DiseaseCard(
-                    name: 'Banana Sigatoka',
-                    date: '2hrs Ago',
-                    severity: 'HIGH RISK',
-                    layoutType: CardType.historyPage,
-                    confidence: 67.69,),
-                SizedBox(height: 12,)
+                    confidence: 67.69,
+                  ),
+                ),
+                SizedBox(height: 12),
               ],
             ),
-          )
+          ),
         ],
       ),
     );

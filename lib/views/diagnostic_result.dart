@@ -5,7 +5,9 @@ import 'package:timeline_tile/timeline_tile.dart';
 import 'assets/icons/agri_v_icons_icons.dart';
 
 class DiagnosticResult extends StatelessWidget {
-  const DiagnosticResult({super.key});
+  const DiagnosticResult({super.key, this.isFromScanner = true});
+
+  final bool isFromScanner;
 
   TabController? get _tabController => null;
 
@@ -18,8 +20,8 @@ class DiagnosticResult extends StatelessWidget {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              'Diagnostic Result',
+            Text( isFromScanner ?
+              'Diagnostic Result' : 'Disease Info',
               style: TextStyle(
                 height: 1,
                 fontFamily: 'Space Grotesk',
@@ -36,6 +38,7 @@ class DiagnosticResult extends StatelessWidget {
         child: Column(
           children: <Widget>[
             DiseaseCard(
+              isFromScanner: isFromScanner,
               name: 'Banana Sigatoka',
               description:
                   'Lorem ipsum ditum sit dolor ametahaha Lorem ipsum ditum sit dolor ametahaha tabang mga langit please Lorem ipsum ditum sit dolor amet ahaha tabang mga langit please ',

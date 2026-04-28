@@ -17,9 +17,7 @@ class _MainMenuState extends State<MainMenu> {
   final List<Widget> _screens = [
     const HomeView(), //0
     const HistoryView(), //1
-    const LibraryView(),
-    const DiagnosticResult()//2
-  ];
+    const LibraryView()];
 
   void _onItemTapped(int index) {
     setState(() {
@@ -52,10 +50,6 @@ class _MainMenuState extends State<MainMenu> {
                 icon: Icon(Icons.energy_savings_leaf),
                 label: 'LIBRARY',
               ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.health_and_safety),
-                label: 'DIAGNOSTIC',
-              )
             ],
             currentIndex: _currentIndex,
             onTap: _onItemTapped,
