@@ -1,5 +1,7 @@
 import 'package:agrivysor_ryzen/views/diagnostic_result.dart';
+import 'package:agrivysor_ryzen/views/history_view.dart';
 import 'package:agrivysor_ryzen/views/photo_capture.dart';
+import 'package:camerawesome/camerawesome_plugin.dart';
 import 'package:flutter/material.dart';
 import 'package:stroke_text/stroke_text.dart';
 import 'components/disease_card.dart';
@@ -132,7 +134,7 @@ class HomeView extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const DiagnosticResult(),
+                          builder: (context) => const PhotoCapture(),
                         ),
                       );
                     },
@@ -311,15 +313,28 @@ class HomeView extends StatelessWidget {
                     ),
                   ),
 
-                  Text(
-                    'View All',
-                    style: TextStyle(
-                      fontFamily: 'Space Grotesk',
-                      fontSize: 12,
-                      fontWeight: FontWeight.w700,
-                      color: Color(0xFF4F6F52),
+
+                  GestureDetector(
+                    onTap: () {
+                      // Put this on your Library Card's onTap:
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const HistoryView(),
+                        ),
+                      );
+                    },
+                    child: Text(
+                      'View All',
+                      style: TextStyle(
+                        fontFamily: 'Space Grotesk',
+                        fontSize: 12,
+                        fontWeight: FontWeight.w700,
+                        color: Color(0xFF4F6F52),
+                      ),
                     ),
-                  ),
+                  )
+                  ,
                 ],
               ),
             ),

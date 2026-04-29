@@ -1,5 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'dart:io';
 
 enum CardType { homePageRecent, diseaseLibrary, historyPage, diagnosticResult }
 
@@ -11,12 +12,14 @@ class DiseaseCard extends StatelessWidget {
   final String? description;
   final CardType layoutType;
   final bool isFromScanner;
+  final String? imagePath;
 
   const DiseaseCard({
     super.key,
     this.isFromScanner = true,
     required this.name,
     required this.layoutType,
+    this.imagePath,
 
     this.date,
     this.severity,
@@ -61,7 +64,7 @@ class DiseaseCard extends StatelessWidget {
               height: 85,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage('lib/views/assets/example.jpg'),
+                  image: FileImage(File(imagePath!)),
                   fit: BoxFit.cover,
                 ),
                 borderRadius: BorderRadius.only(
@@ -460,7 +463,7 @@ class DiseaseCard extends StatelessWidget {
               height: 140,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage('lib/views/assets/example.jpg'),
+                  image: FileImage(File(imagePath!)),
                   fit: BoxFit.cover,
                 ),
                 borderRadius: BorderRadius.all(Radius.circular(20)),

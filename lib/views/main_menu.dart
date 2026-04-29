@@ -15,8 +15,7 @@ class _MainMenuState extends State<MainMenu> {
   int _currentIndex = 0; // that gets the index to the final List<Widget>
 
   final List<Widget> _screens = [
-    const HomeView(), //0
-    const HistoryView(), //1
+    const HomeView(), //0//1
     const LibraryView()];
 
   void _onItemTapped(int index) {
@@ -42,10 +41,6 @@ class _MainMenuState extends State<MainMenu> {
             backgroundColor: Color(0xFFF0F0F0),
             items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(icon: Icon(Icons.home), label: 'HOME'),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.history),
-                label: 'HISTORY',
-              ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.energy_savings_leaf),
                 label: 'LIBRARY',
