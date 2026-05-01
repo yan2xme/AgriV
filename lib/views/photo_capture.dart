@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:camerawesome/camerawesome_plugin.dart';
 import 'package:liquid_glass_renderer/liquid_glass_renderer.dart';
-
 import 'diagnostic_result.dart';
+import 'package:agrivysor_ryzen/viewsmodels/scanner_viewmodel.dart';
+import 'package:provider/provider.dart';
 
 class PhotoCapture extends StatelessWidget {
   const PhotoCapture({super.key});
@@ -92,21 +93,29 @@ class PhotoCapture extends StatelessWidget {
                         onPressed: () {
                           async: cameraState.when(
                             onPhotoMode: (photoState) async {
-                              // This actually snaps the picture!
                               final CaptureRequest request = await photoState.takePhoto();
 
-                              // request.path holds the location of the saved image.
                               print("Photo saved at: ${request.path}");
 
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => DiagnosticResult(
-                                    isFromScanner: true,
-                                    imagePath: request.path, // <-- Pass the cache path here
+                              final testScanner = ScannerViewModel();
+                              await testScanner.initViewModel(); // Boot up the ML brain
+                              await testScanner.processPhoto(request.path!); // Feed it the image
+
+
+                              if (context.mounted) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => DiagnosticResult(
+                                        isFromScanner: true,
+                                        imagePath: testScanner.scannedImagePath,
+                                        detectedDiseaseId: testScanner.detectedDiseaseId,
+                                        confidenceLevel: testScanner.confidenceLevel // <-- Pass the cache path here
+                                    ),
                                   ),
-                                ),
-                              );
+                                );
+                              }
+
                             },
                           );
                         },
@@ -134,4 +143,8 @@ class PhotoCapture extends StatelessWidget {
     },
     saveConfig: .photo(),
   );
+}
+
+extension on BuildContext {
+  read() {}
 }

@@ -64,7 +64,9 @@ class DiseaseCard extends StatelessWidget {
               height: 85,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: FileImage(File(imagePath!)),
+                  image: imagePath != null
+                      ? FileImage(File(imagePath!)) as ImageProvider
+                      : const AssetImage('lib/views/assets/example.jpg'),
                   fit: BoxFit.cover,
                 ),
                 borderRadius: BorderRadius.only(
@@ -86,7 +88,6 @@ class DiseaseCard extends StatelessWidget {
                 ),
               ),
             ),
-
 
             Container(
               padding: EdgeInsets.fromLTRB(20, 110, 20, 0),
@@ -173,7 +174,9 @@ class DiseaseCard extends StatelessWidget {
               height: 130,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage('lib/views/assets/example.jpg'),
+                  image: imagePath != null
+                      ? FileImage(File(imagePath!)) as ImageProvider
+                      : const AssetImage('lib/views/assets/example.jpg'),
                   fit: BoxFit.cover,
                 ),
                 borderRadius: BorderRadius.only(
@@ -199,7 +202,7 @@ class DiseaseCard extends StatelessWidget {
             Container(
               padding: EdgeInsets.fromLTRB(20, 175, 55, 0),
               child: Text(
-                description!,
+                description ?? 'No description available.',
                 maxLines: 3,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
@@ -259,7 +262,7 @@ class DiseaseCard extends StatelessWidget {
             Container(
               margin: EdgeInsets.fromLTRB(280, 150, 0, 0),
               child: Text(
-                severity!,
+                severity ?? 'N/A',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 12,
@@ -412,7 +415,7 @@ class DiseaseCard extends StatelessWidget {
               margin: EdgeInsets.fromLTRB(270, 60, 20, 0),
               child: RichText(
                 text: TextSpan(
-                  text: ('$confidence%'),
+                  text: ('${(confidence ?? 0.0).toStringAsFixed(1)}%'),
                   style: TextStyle(
                     fontSize: 18,
                     height: 1,
@@ -426,9 +429,7 @@ class DiseaseCard extends StatelessWidget {
           ],
         );
 
-
-
-        ///4. Diagnostic Result
+      ///4. Diagnostic Result
       case CardType.diagnosticResult:
         return Stack(
           children: <Widget>[
@@ -463,7 +464,9 @@ class DiseaseCard extends StatelessWidget {
               height: 140,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: FileImage(File(imagePath!)),
+                  image: imagePath != null
+                      ? FileImage(File(imagePath!)) as ImageProvider
+                      : const AssetImage('lib/views/assets/example.jpg'),
                   fit: BoxFit.cover,
                 ),
                 borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -472,7 +475,7 @@ class DiseaseCard extends StatelessWidget {
 
             Container(
               width: 400,
-              padding: EdgeInsets.fromLTRB(55,170, 20, 0),
+              padding: EdgeInsets.fromLTRB(55, 170, 20, 0),
               child: Text(
                 maxLines: 2,
                 name,
@@ -485,26 +488,25 @@ class DiseaseCard extends StatelessWidget {
               ),
             ),
 
-
             if (isFromScanner)
-            Container(
-              padding: EdgeInsets.fromLTRB(135, 250, 20, 0),
-              child: RichText(
-                text: TextSpan(
-                  text: (date),
-                  style: TextStyle(
-                    fontSize: 12,
-                    height: 1,
-                    fontFamily: 'Space Grotesk',
-                    fontWeight: FontWeight.w500,
-                    color: Color(0xFF757776),
+              Container(
+                padding: EdgeInsets.fromLTRB(135, 250, 20, 0),
+                child: RichText(
+                  text: TextSpan(
+                    text: (date),
+                    style: TextStyle(
+                      fontSize: 12,
+                      height: 1,
+                      fontFamily: 'Space Grotesk',
+                      fontWeight: FontWeight.w500,
+                      color: Color(0xFF757776),
+                    ),
                   ),
                 ),
               ),
-            ),
 
             Container(
-              margin: EdgeInsets.fromLTRB(176,210, 0, 0),
+              margin: EdgeInsets.fromLTRB(176, 210, 0, 0),
               width: 95,
               height: 25,
               decoration: BoxDecoration(
@@ -516,7 +518,7 @@ class DiseaseCard extends StatelessWidget {
             Container(
               margin: EdgeInsets.fromLTRB(185, 210, 0, 0),
               child: Text(
-                severity!,
+                severity ?? 'PENDING',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 16,
@@ -537,68 +539,67 @@ class DiseaseCard extends StatelessWidget {
               ),
             ),
 
-
             if (isFromScanner)
-            Container(
-              margin: EdgeInsets.fromLTRB(200, 15, 0, 0),
-              width: 140,
-              height: 140,
-              child: PieChart(
-                PieChartData(
-                  startDegreeOffset: 360,
-                  sections: [
-                    PieChartSectionData(
-                      value: 100 - confidence!,
-                      radius: 15,
-                      showTitle: false,
-                      color: Colors.grey,
-                    ),
-                    PieChartSectionData(
-                      value: confidence,
-                      radius: 15,
-                      showTitle: false,
-                      color: Colors.green,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-
-            if (isFromScanner)
-            Container(
-              width: 400,
-              padding: EdgeInsets.fromLTRB(225, 60, 20, 0),
-              child: RichText(
-                text: TextSpan(
-                  text: ('Confidence:'),
-                  style: TextStyle(
-                    fontSize: 16,
-                    height: 1,
-                    fontFamily: 'Space Grotesk',
-                    fontWeight: FontWeight.w500,
-                    color: Color(0xFF757776),
+              Container(
+                margin: EdgeInsets.fromLTRB(200, 15, 0, 0),
+                width: 140,
+                height: 140,
+                child: PieChart(
+                  PieChartData(
+                    startDegreeOffset: 360,
+                    sections: [
+                      PieChartSectionData(
+                        value: 100 - (confidence ?? 0.00),
+                        radius: 15,
+                        showTitle: false,
+                        color: Colors.grey,
+                      ),
+                      PieChartSectionData(
+                        value: (confidence ?? 0.00),
+                        radius: 15,
+                        showTitle: false,
+                        color: Colors.green,
+                      ),
+                    ],
                   ),
                 ),
               ),
-            ),
 
             if (isFromScanner)
-            Container(
-              width: 400,
-              padding: EdgeInsets.fromLTRB(225, 80, 20, 0),
-              child: RichText(
-                text: TextSpan(
-                  text: ('$confidence%'),
-                  style: TextStyle(
-                    fontSize: 28,
-                    height: 1,
-                    fontFamily: 'Space Grotesk',
-                    fontWeight: FontWeight.w500,
-                    color: Color(0xFF757776),
+              Container(
+                width: 400,
+                padding: EdgeInsets.fromLTRB(225, 60, 20, 0),
+                child: RichText(
+                  text: TextSpan(
+                    text: ('Confidence:'),
+                    style: TextStyle(
+                      fontSize: 16,
+                      height: 1,
+                      fontFamily: 'Space Grotesk',
+                      fontWeight: FontWeight.w500,
+                      color: Color(0xFF757776),
+                    ),
                   ),
                 ),
               ),
-            ),
+
+            if (isFromScanner)
+              Container(
+                width: 400,
+                padding: EdgeInsets.fromLTRB(225, 80, 20, 0),
+                child: RichText(
+                  text: TextSpan(
+                    text: ('${confidence!.toStringAsFixed(2)}%'),
+                    style: TextStyle(
+                      fontSize: 28,
+                      height: 1,
+                      fontFamily: 'Space Grotesk',
+                      fontWeight: FontWeight.w500,
+                      color: Color(0xFF757776),
+                    ),
+                  ),
+                ),
+              ),
           ],
         );
     }

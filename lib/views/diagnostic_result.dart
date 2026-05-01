@@ -3,13 +3,14 @@ import 'components/disease_card.dart';
 import 'package:tab_container/tab_container.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 import 'assets/icons/agri_v_icons_icons.dart';
-import 'dart:io';
 
 class DiagnosticResult extends StatelessWidget {
-  const DiagnosticResult({super.key, this.isFromScanner = true, this.imagePath});
+  const DiagnosticResult({super.key, this.isFromScanner = true, this.imagePath, this.detectedDiseaseId, this.confidenceLevel});
 
   final bool isFromScanner;
   final String? imagePath;
+  final String? detectedDiseaseId;
+  final double? confidenceLevel;
 
   TabController? get _tabController => null;
 
@@ -42,12 +43,12 @@ class DiagnosticResult extends StatelessWidget {
             DiseaseCard(
               imagePath: imagePath,
               isFromScanner: isFromScanner,
-              name: 'Banana Sigatoka',
+              name: detectedDiseaseId ?? 'Unknown Disease',
               description:
                   'Lorem ipsum ditum sit dolor ametahaha Lorem ipsum ditum sit dolor ametahaha tabang mga langit please Lorem ipsum ditum sit dolor amet ahaha tabang mga langit please ',
               severity: 'HIGH RISK',
               layoutType: CardType.diagnosticResult,
-              confidence: 68.69,
+              confidence: confidenceLevel ?? 0.0,
               date: 'Aug 8, 2026 9:11 AM',
             ),
 

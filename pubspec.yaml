@@ -78,6 +78,8 @@ flutter:
 
   assets:
     - lib/views/assets/
+    - lib/views/assets/ml/labels.txt
+    - lib/views/assets/ml/plantmodel_MNv3.tflite
 
   # To add assets to your application, add an assets section, like this:
   # assets:
