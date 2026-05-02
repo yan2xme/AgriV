@@ -10,10 +10,15 @@ class ScannerViewModel extends ChangeNotifier {
   final MLService _mlService = MLService();
 
   final ImagePicker _picker = ImagePicker();
+  static List<DiseaseModel> scanHistory = [];
 
   Future<void> pickAndProcessImage(BuildContext context) async {
     // 1. Buksan ang gallery
     final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+
+    if (diseaseModel != null) {
+      scanHistory.insert(0, diseaseModel!); // Puts the newest scan at the top
+    }
 
     if (image != null) {
       // 2. Simulan ang "brain" (ML Model)

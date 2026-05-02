@@ -109,7 +109,7 @@ class DiagnosticResult extends StatelessWidget {
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(30),
                     ),
-                    height: 229,
+                    height: 300,
                     child: ListView(
                       padding: EdgeInsets.all(10),
                       children: [

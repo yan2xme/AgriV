@@ -19,7 +19,7 @@ class HomeView extends StatelessWidget {
             Stack(
               children: <Widget>[
                 Container(
-                  height: 180,
+                  height: 220,
                   width: double.infinity,
                   decoration: BoxDecoration(
                     image: DecorationImage(
@@ -30,7 +30,7 @@ class HomeView extends StatelessWidget {
                 ),
 
                 Container(
-                  padding: const EdgeInsets.all(90),
+                  padding: const EdgeInsets.all(110),
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       begin: Alignment.topCenter,
@@ -45,7 +45,7 @@ class HomeView extends StatelessWidget {
                 ),
 
                 Container(
-                  padding: EdgeInsets.fromLTRB(23, 100, 20, 0),
+                  padding: EdgeInsets.fromLTRB(23, 120, 20, 0),
                   child: StrokeText(
                     text: 'Magsasaka!',
                     textStyle: TextStyle(
@@ -59,7 +59,7 @@ class HomeView extends StatelessWidget {
                 ),
 
                 Container(
-                  padding: EdgeInsets.fromLTRB(25, 210, 20, 0),
+                  padding: EdgeInsets.fromLTRB(25, 230, 20, 0),
                   child: Text(
                     "Tara na't magscan ng mga pananim!",
                     style: TextStyle(fontSize: 16, color: Colors.black),
@@ -69,7 +69,7 @@ class HomeView extends StatelessWidget {
                 Align(
                   alignment: Alignment.bottomRight,
                   child: Container(
-                    margin: EdgeInsets.only(top: 60),
+                    margin: EdgeInsets.only(top: 80),
                     height: 180,
                     width: 180,
                     decoration: BoxDecoration(
@@ -83,7 +83,7 @@ class HomeView extends StatelessWidget {
                 Align(
                   alignment: Alignment.center,
                   child: Container(
-                    height: 80,
+                    height: 130,
                     width: 150,
                     decoration: BoxDecoration(
                       image: DecorationImage(
@@ -94,7 +94,7 @@ class HomeView extends StatelessWidget {
                 ),
 
                 Container(
-                  padding: EdgeInsets.fromLTRB(25, 80, 20, 0),
+                  padding: EdgeInsets.fromLTRB(25, 100, 20, 0),
                   child: StrokeText(
                     text: 'Magandang araw,',
                     textStyle: TextStyle(
@@ -108,7 +108,7 @@ class HomeView extends StatelessWidget {
                 ),
 
                 Container(
-                  padding: EdgeInsets.fromLTRB(25, 120, 20, 0),
+                  padding: EdgeInsets.fromLTRB(25, 140, 20, 0),
                   child: Container(
                     height: 120,
                     width: 120,
@@ -333,33 +333,43 @@ class HomeView extends StatelessWidget {
               padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
               width: double.infinity,
               height: 150,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      // Put this on your Library Card's onTap:
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const DiagnosticResult(
-                            isFromScanner:
-                                true, // <-- This turns off the scanner UI!
-                          ),
-                        ),
-                      );
-                    },
-                    child: DiseaseCard(
-                      name: 'Banana Sigatoka',
-                      date: '2hrs Ago',
-                      severity: 'HIGH RISK',
-                      layoutType: CardType.homePageRecent,
-                    ),
-                  ),
+              child: ScannerViewModel.scanHistory.isEmpty
+                  ? const Center(
+                      child: Text(
+                        'Mag-scan na para makita ang resulta dito!',
+                        style: TextStyle(color: Colors.grey, fontSize: 14),
+                      ),
+                    )
+                  : ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: ScannerViewModel.scanHistory.length,
+                      itemBuilder: (context, index) {
+                        final disease = ScannerViewModel.scanHistory[index];
 
-                  SizedBox(width: 12),
-                ],
-              ),
+                        return Padding(
+                          padding: const EdgeInsets.only(right: 12.0),
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => DiagnosticResult(
+                                    isFromScanner: false,
+                                    disease: disease,
+                                  ),
+                                ),
+                              );
+                            },
+                            child: DiseaseCard(
+                              name: disease.name,
+                              date: 'Recently',
+                              severity: disease.severity,
+                              layoutType: CardType.homePageRecent,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
             ),
           ],
         ),
