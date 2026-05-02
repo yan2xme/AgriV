@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import '../services/ml_service.dart';
-import "package:agrivysor_ryzen/views/photo_capture.dart";
-import 'package:agrivysor_ryzen/views/diagnostic_result.dart';
 
 class ScannerViewModel extends ChangeNotifier {
   final MLService _mlService = MLService();

@@ -58,7 +58,7 @@ class LibraryView extends StatelessWidget {
             ],
           ),
 
-          Container(
+          SizedBox(
             width: 372,
             height: 465.4,
             child: ListView(

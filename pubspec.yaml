@@ -45,6 +45,7 @@ dependencies:
   timeline_tile: ^2.0.0
   tab_container: ^3.5.3
 
+  image: any
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -1,6 +1,4 @@
-import 'package:agrivysor_ryzen/views/diagnostic_result.dart';
 import 'package:flutter/material.dart';
-import 'history_view.dart';
 import 'home_view.dart';
 import 'library_view.dart';
 

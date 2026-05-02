@@ -1,7 +1,6 @@
 import 'package:agrivysor_ryzen/views/diagnostic_result.dart';
 import 'package:agrivysor_ryzen/views/history_view.dart';
 import 'package:agrivysor_ryzen/views/photo_capture.dart';
-import 'package:camerawesome/camerawesome_plugin.dart';
 import 'package:flutter/material.dart';
 import 'package:stroke_text/stroke_text.dart';
 import 'components/disease_card.dart';

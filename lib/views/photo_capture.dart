@@ -3,7 +3,6 @@ import 'package:camerawesome/camerawesome_plugin.dart';
 import 'package:liquid_glass_renderer/liquid_glass_renderer.dart';
 import 'diagnostic_result.dart';
 import 'package:agrivysor_ryzen/viewsmodels/scanner_viewmodel.dart';
-import 'package:provider/provider.dart';
 
 class PhotoCapture extends StatelessWidget {
   const PhotoCapture({super.key});
@@ -146,5 +145,5 @@ class PhotoCapture extends StatelessWidget {
 }
 
 extension on BuildContext {
-  read() {}
+  void read() {}
 }
