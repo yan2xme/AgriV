@@ -90,31 +90,37 @@ class PhotoCapture extends StatelessWidget {
 
                       ElevatedButton(
                         onPressed: () {
-                          async: cameraState.when(
+                          async:
+                          cameraState.when(
                             onPhotoMode: (photoState) async {
-                              final CaptureRequest request = await photoState.takePhoto();
+                              final CaptureRequest request = await photoState
+                                  .takePhoto();
 
                               print("Photo saved at: ${request.path}");
 
                               final testScanner = ScannerViewModel();
-                              await testScanner.initViewModel(); // Boot up the ML brain
-                              await testScanner.processPhoto(request.path!); // Feed it the image
-
+                              await testScanner
+                                  .initViewModel(); // Boot up the ML brain
+                              await testScanner.processPhoto(
+                                request.path!,
+                              ); // Feed it the image
 
                               if (context.mounted) {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => DiagnosticResult(
-                                        isFromScanner: true,
-                                        imagePath: testScanner.scannedImagePath,
-                                        detectedDiseaseId: testScanner.detectedDiseaseId,
-                                        confidenceLevel: testScanner.confidenceLevel // <-- Pass the cache path here
+                                      isFromScanner: true,
+                                      imagePath: testScanner.scannedImagePath,
+                                      detectedDiseaseId:
+                                          testScanner.detectedDiseaseId,
+                                      confidenceLevel:
+                                          testScanner.confidenceLevel,
+                                      disease: testScanner.diseaseModel,
                                     ),
                                   ),
                                 );
                               }
-
                             },
                           );
                         },

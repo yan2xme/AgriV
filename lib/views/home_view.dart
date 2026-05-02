@@ -1,6 +1,7 @@
 import 'package:agrivysor_ryzen/views/diagnostic_result.dart';
 import 'package:agrivysor_ryzen/views/history_view.dart';
 import 'package:agrivysor_ryzen/views/photo_capture.dart';
+import 'package:agrivysor_ryzen/viewsmodels/scanner_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:stroke_text/stroke_text.dart';
 import 'components/disease_card.dart';
@@ -207,17 +208,9 @@ class HomeView extends StatelessWidget {
 
                   //second
                   GestureDetector(
-                    onTap: () {
-                      // Put this on your Library Card's onTap:
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const DiagnosticResult(
-                            isFromScanner:
-                                true, // <-- This turns off the scanner UI!
-                          ),
-                        ),
-                      );
+                    onTap: () async {
+                      final scanner = ScannerViewModel();
+                      await scanner.pickAndProcessImage(context);
                     },
                     child: Container(
                       width: 165,
@@ -312,7 +305,6 @@ class HomeView extends StatelessWidget {
                     ),
                   ),
 
-
                   GestureDetector(
                     onTap: () {
                       // Put this on your Library Card's onTap:
@@ -332,8 +324,7 @@ class HomeView extends StatelessWidget {
                         color: Color(0xFF4F6F52),
                       ),
                     ),
-                  )
-                  ,
+                  ),
                 ],
               ),
             ),

@@ -1,32 +1,32 @@
-Banana Cordana
-Banana Healthy
-Banana Insect Pest
-Banana Dry Leaf Disease
-Banana Mosaic
-Banana Panama
-Banana Yellow Sigatoka
-Coconut Bud Root Dropping
-Coconut Bud Rot
-Coconut Catterpillar Spot
-Coconut Fruit Healthy
-Coconut Fruit Infected
-Coconut Gray Leaf Spot
-Coconut Leaf Rot
-Coconut Stem Bleeding
-Corn Cercospora Leaf Spot
-Corn Common Rust
-Corn Healthy
-Corn Northern Leaf Blight
-Pineapple Crown Rot Disease
-Pineapple Fruit Fasciation Disorder
-Pineapple Fruit Rot Disease
-Pineapple Healthy
-Pineapple Wilt Disease
-Pineapple Multiple Crown Disorder
-Pineapple Root Rot Disease
-Sugarcane Healthy
-Sugarcane Mosaic
-Sugarcane Red Rot
-Sugarcane Rust
-Sugarcane Yellow Leaf Disease
-Unknown
+banana_cordana
+banana_healthy
+banana_insect_pest
+banana_dry_leaf
+banana_mosaic
+banana_panama
+banana_yellow_sigatoka
+coconut_bud_root_dropping
+coconut_bud_rot
+coconut_caterpillar_spot
+coconut_fruit_healthy
+coconut_fruit_infected
+coconut_gray_leaf_spot
+coconut_leaf_rot
+coconut_stem_bleeding
+corn_cercospora_leaf_spot
+corn_common_rust
+corn_healthy
+corn_northern_leaf_blight
+pineapple_crown_rot
+pineapple_fruit_fasciation
+pineapple_fruit_rot
+pineapple_healthy
+pineapple_wilt
+pineapple_multiple_crown
+pineapple_root_rot
+sugarcane_healthy
+sugarcane_mosaic
+sugarcane_red_rot
+sugarcane_rust
+sugarcane_yellow_leaf
+unknown

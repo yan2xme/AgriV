@@ -1,16 +1,25 @@
 import 'package:flutter/material.dart';
+import '../models/disease_model.dart';
 import 'components/disease_card.dart';
 import 'package:tab_container/tab_container.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 import 'assets/icons/agri_v_icons_icons.dart';
 
 class DiagnosticResult extends StatelessWidget {
-  const DiagnosticResult({super.key, this.isFromScanner = true, this.imagePath, this.detectedDiseaseId, this.confidenceLevel});
+  const DiagnosticResult({
+    super.key,
+    this.isFromScanner = true,
+    this.imagePath,
+    this.detectedDiseaseId,
+    this.confidenceLevel,
+    this.disease,
+  });
 
   final bool isFromScanner;
   final String? imagePath;
   final String? detectedDiseaseId;
   final double? confidenceLevel;
+  final DiseaseModel? disease;
 
   TabController? get _tabController => null;
 
@@ -23,8 +32,8 @@ class DiagnosticResult extends StatelessWidget {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text( isFromScanner ?
-              'Diagnostic Result' : 'Disease Info',
+            Text(
+              isFromScanner ? 'Diagnostic Result' : 'Disease Info',
               style: TextStyle(
                 height: 1,
                 fontFamily: 'Space Grotesk',
@@ -43,10 +52,8 @@ class DiagnosticResult extends StatelessWidget {
             DiseaseCard(
               imagePath: imagePath,
               isFromScanner: isFromScanner,
-              name: detectedDiseaseId ?? 'Unknown Disease',
-              description:
-                  'Lorem ipsum ditum sit dolor ametahaha Lorem ipsum ditum sit dolor ametahaha tabang mga langit please Lorem ipsum ditum sit dolor amet ahaha tabang mga langit please ',
-              severity: 'HIGH RISK',
+              name: disease?.name ?? detectedDiseaseId ?? 'Unknown Disease',
+              severity: disease?.severity,
               layoutType: CardType.diagnosticResult,
               confidence: confidenceLevel ?? 0.0,
               date: 'Aug 8, 2026 9:11 AM',
@@ -90,10 +97,7 @@ class DiagnosticResult extends StatelessWidget {
                       padding: EdgeInsets.all(10),
                       children: [
                         Text(
-                          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt "
-                          "ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud"
-                          "exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-                          "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur",
+                          disease?.description ?? 'No description available',
                         ),
                       ],
                     ),
@@ -112,10 +116,12 @@ class DiagnosticResult extends StatelessWidget {
                         TimelineTile(
                           isFirst: true,
                           indicatorStyle: IndicatorStyle(
-                            iconStyle: IconStyle(iconData: AgriVIcons.group,
-                                color: Color(0xFF4F6F52)),
-                            color: Color(0xFF9FFFBD) ,
-                            padding: EdgeInsets.fromLTRB(8,2,8,2),
+                            iconStyle: IconStyle(
+                              iconData: AgriVIcons.group,
+                              color: Color(0xFF4F6F52),
+                            ),
+                            color: Color(0xFF9FFFBD),
+                            padding: EdgeInsets.fromLTRB(8, 2, 8, 2),
                             width: 40,
                           ),
                           endChild: Stack(
@@ -139,8 +145,8 @@ class DiagnosticResult extends StatelessWidget {
                                 child: RichText(
                                   text: TextSpan(
                                     text:
-                                        'Remove and properly dispose (burn or bury) '
-                                        'infected banana leaves to stop the spread of the disease.',
+                                        disease?.treatments.immediateAction ??
+                                        'No immediate action available',
                                     style: TextStyle(
                                       fontSize: 12,
                                       height: 1,
@@ -158,10 +164,12 @@ class DiagnosticResult extends StatelessWidget {
                         //organic
                         TimelineTile(
                           indicatorStyle: IndicatorStyle(
-                              iconStyle: IconStyle(iconData: AgriVIcons.icon,
-                                  color: Color(0xFF4F6F52)),
-                              color: Color(0xFF9FFFBD),
-                              padding: EdgeInsets.fromLTRB(8, 2, 8, 2),
+                            iconStyle: IconStyle(
+                              iconData: AgriVIcons.icon,
+                              color: Color(0xFF4F6F52),
+                            ),
+                            color: Color(0xFF9FFFBD),
+                            padding: EdgeInsets.fromLTRB(8, 2, 8, 2),
                             width: 40,
                           ),
                           endChild: Stack(
@@ -184,7 +192,8 @@ class DiagnosticResult extends StatelessWidget {
                                 child: RichText(
                                   text: TextSpan(
                                     text:
-                                        'Use neem oil or compost tea sprays to help suppress fungal growth and strengthen plant resistance.',
+                                        disease?.treatments.organic ??
+                                        'No organic available',
                                     style: TextStyle(
                                       fontSize: 12,
                                       height: 1,
@@ -202,8 +211,10 @@ class DiagnosticResult extends StatelessWidget {
                         //chemical
                         TimelineTile(
                           indicatorStyle: IndicatorStyle(
-                              iconStyle: IconStyle(iconData: AgriVIcons.flask_icon_1,
-                                  color: Color(0xFF4F6F52)),
+                            iconStyle: IconStyle(
+                              iconData: AgriVIcons.flask_icon_1,
+                              color: Color(0xFF4F6F52),
+                            ),
                             color: Color(0xFF9FFFBD),
                             padding: EdgeInsets.fromLTRB(8, 2, 8, 2),
                             width: 40,
@@ -228,8 +239,8 @@ class DiagnosticResult extends StatelessWidget {
                                 child: RichText(
                                   text: TextSpan(
                                     text:
-                                        'Apply recommended fungicides such as mancozeb or chlorothalonil every 7–14 days,'
-                                        'especially during rainy periods, following proper dosage and safety guidelines.',
+                                        disease?.treatments.chemical ??
+                                        'No chemical available',
                                     style: TextStyle(
                                       fontSize: 12,
                                       height: 1,
@@ -248,8 +259,10 @@ class DiagnosticResult extends StatelessWidget {
                         TimelineTile(
                           isLast: true,
                           indicatorStyle: IndicatorStyle(
-                              iconStyle: IconStyle(iconData: AgriVIcons.icon__1_,
-                                  color: Color(0xFF4F6F52)),
+                            iconStyle: IconStyle(
+                              iconData: AgriVIcons.icon__1_,
+                              color: Color(0xFF4F6F52),
+                            ),
                             color: Color(0xFF9FFFBD),
                             padding: EdgeInsets.fromLTRB(8, 2, 8, 2),
                             width: 40,
@@ -274,8 +287,8 @@ class DiagnosticResult extends StatelessWidget {
                                 child: RichText(
                                   text: TextSpan(
                                     text:
-                                        'Introduce beneficial microorganisms like'
-                                        'Trichoderma species that naturally fight the fungus causing the disease.',
+                                        disease?.treatments.biological ??
+                                        'No biological available',
 
                                     style: TextStyle(
                                       fontSize: 12,
@@ -301,12 +314,12 @@ class DiagnosticResult extends StatelessWidget {
                       borderRadius: BorderRadius.circular(30),
                     ),
                     height: 229,
-                    child: ListView(padding: EdgeInsets.all(10), children: [
-                      Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt "
-                          "ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud"
-                          "exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-                          "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur")
-                    ]),
+                    child: ListView(
+                      padding: EdgeInsets.all(10),
+                      children: [
+                        Text(disease?.prevention ?? 'No prevention available'),
+                      ],
+                    ),
                   ),
                 ],
               ),
