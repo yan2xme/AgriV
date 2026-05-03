@@ -10,9 +10,11 @@ class PhotoCapture extends StatelessWidget {
   @override
   Widget build(BuildContext context) => CameraAwesomeBuilder.custom(
     builder: (cameraState, photo) {
-      // Return your UI (a Widget)
       return Stack(
         children: [
+          // ==========================================
+          // TOP DETECT BUTTON
+          // ==========================================
           Positioned(
             top: 60,
             left: 0,
@@ -24,19 +26,20 @@ class PhotoCapture extends StatelessWidget {
                   child: Stack(
                     children: [
                       Container(
-                        padding: EdgeInsets.only(top: 2),
+                        padding: const EdgeInsets.only(top: 2),
                         width: 100,
                         height: 40,
                       ),
                       Container(
-                        padding: EdgeInsets.fromLTRB(20, 8, 0, 0),
-                        child: Text(
+                        padding: const EdgeInsets.fromLTRB(20, 8, 0, 0),
+                        child: const Text(
                           'DETECT',
                           style: TextStyle(
                             fontSize: 16,
                             color: Colors.white,
                             fontFamily: 'Space Grotesk',
                             fontWeight: FontWeight.w300,
+                            decoration: TextDecoration.none,
                           ),
                         ),
                       ),
@@ -47,28 +50,48 @@ class PhotoCapture extends StatelessWidget {
             ),
           ),
 
+          // ==========================================
+          // BOTTOM CONTROLS
+          // ==========================================
           Positioned(
             bottom: 50,
             left: -10,
             right: 0,
-
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
+                // REFACTORED: Strict On/Off Flash Toggle
                 LiquidGlassLayer(
                   child: LiquidGlass(
                     shape: LiquidRoundedSuperellipse(borderRadius: 30),
-                    child: IconButton(
-                      iconSize: 30,
-                      icon: Icon(Icons.flash_on),
-                      color: Colors.white,
-                      onPressed: () {},
+                    child: StreamBuilder<FlashMode>(
+                      stream: cameraState.sensorConfig.flashMode$,
+                      builder: (context, snapshot) {
+                        final flashMode = snapshot.data ?? FlashMode.none;
+
+                        // We treat anything that isn't 'on' as 'off' for the icon
+                        final isFlashOn = flashMode == FlashMode.on;
+
+                        return IconButton(
+                          iconSize: 30,
+                          icon: Icon(isFlashOn ? Icons.flash_on : Icons.flash_off),
+                          color: Colors.white,
+                          onPressed: () {
+                            // Explicitly toggle between only two states
+                            if (isFlashOn) {
+                              cameraState.sensorConfig.setFlashMode(FlashMode.none);
+                            } else {
+                              cameraState.sensorConfig.setFlashMode(FlashMode.on);
+                            }
+                          },
+                        );
+                      },
                     ),
                   ),
                 ),
 
+                // Capture Button
                 GestureDetector(
-                  onTap: () {},
                   child: Stack(
                     children: [
                       Container(
@@ -78,7 +101,7 @@ class PhotoCapture extends StatelessWidget {
                           gradient: LinearGradient(
                             begin: Alignment.topLeft,
                             end: Alignment.bottomRight,
-                            stops: [0.0, 1.0],
+                            stops: const [0.0, 1.0],
                             colors: [
                               Colors.green.shade400,
                               Colors.green.shade200,
@@ -87,23 +110,15 @@ class PhotoCapture extends StatelessWidget {
                           borderRadius: BorderRadius.circular(100),
                         ),
                       ),
-
                       ElevatedButton(
                         onPressed: () {
-                          async:
                           cameraState.when(
                             onPhotoMode: (photoState) async {
-                              final CaptureRequest request = await photoState
-                                  .takePhoto();
-
-                              print("Photo saved at: ${request.path}");
+                              final CaptureRequest request = await photoState.takePhoto();
 
                               final testScanner = ScannerViewModel();
-                              await testScanner
-                                  .initViewModel(); // Boot up the ML brain
-                              await testScanner.processPhoto(
-                                request.path!,
-                              ); // Feed it the image
+                              await testScanner.initViewModel();
+                              await testScanner.processPhoto(request.path!);
 
                               if (context.mounted) {
                                 Navigator.push(
@@ -112,11 +127,10 @@ class PhotoCapture extends StatelessWidget {
                                     builder: (context) => DiagnosticResult(
                                       isFromScanner: true,
                                       imagePath: testScanner.scannedImagePath,
-                                      detectedDiseaseId:
-                                          testScanner.detectedDiseaseId,
-                                      confidenceLevel:
-                                          testScanner.confidenceLevel,
+                                      detectedDiseaseId: testScanner.detectedDiseaseId,
+                                      confidenceLevel: testScanner.confidenceLevel,
                                       disease: testScanner.diseaseModel,
+                                      scanDate: testScanner.scanDate,
                                     ),
                                   ),
                                 );
@@ -125,20 +139,17 @@ class PhotoCapture extends StatelessWidget {
                           );
                         },
                         style: ElevatedButton.styleFrom(
-                          padding: EdgeInsets.all(35),
+                          padding: const EdgeInsets.all(35),
                           iconSize: 40,
-                          shape: CircleBorder(),
-                          backgroundColor:
-                              Colors.transparent, // <-- Splash color
+                          shape: const CircleBorder(),
+                          backgroundColor: Colors.transparent,
                         ),
-                        child: Icon(Icons.camera, color: Colors.white),
+                        child: const Icon(Icons.camera, color: Colors.white),
                       ),
                     ],
                   ),
                 ),
 
-                // An empty SizedBox here helps perfectly center the green button
-                // if your flashlight is only on the left side
                 const SizedBox(width: 48),
               ],
             ),
@@ -146,10 +157,6 @@ class PhotoCapture extends StatelessWidget {
         ],
       );
     },
-    saveConfig: .photo(),
+    saveConfig: SaveConfig.photo(),
   );
-}
-
-extension on BuildContext {
-  void read() {}
 }

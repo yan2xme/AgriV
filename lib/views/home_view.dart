@@ -5,10 +5,17 @@ import 'package:agrivysor_ryzen/viewsmodels/scanner_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:stroke_text/stroke_text.dart';
 import 'components/disease_card.dart';
+import '../models/disease_model.dart';
 
-class HomeView extends StatelessWidget {
+// Changed to StatefulWidget
+class HomeView extends StatefulWidget {
   const HomeView({super.key});
 
+  @override
+  State<HomeView> createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +28,7 @@ class HomeView extends StatelessWidget {
                 Container(
                   height: 220,
                   width: double.infinity,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage('lib/views/assets/bgFarm.jpg'),
                       fit: BoxFit.cover,
@@ -45,8 +52,8 @@ class HomeView extends StatelessWidget {
                 ),
 
                 Container(
-                  padding: EdgeInsets.fromLTRB(23, 120, 20, 0),
-                  child: StrokeText(
+                  padding: const EdgeInsets.fromLTRB(23, 120, 20, 0),
+                  child: const StrokeText(
                     text: 'Magsasaka!',
                     textStyle: TextStyle(
                       fontFamily: 'Space Grotesk',
@@ -59,8 +66,8 @@ class HomeView extends StatelessWidget {
                 ),
 
                 Container(
-                  padding: EdgeInsets.fromLTRB(25, 230, 20, 0),
-                  child: Text(
+                  padding: const EdgeInsets.fromLTRB(25, 230, 20, 0),
+                  child: const Text(
                     "Tara na't magscan ng mga pananim!",
                     style: TextStyle(fontSize: 16, color: Colors.black),
                   ),
@@ -69,10 +76,10 @@ class HomeView extends StatelessWidget {
                 Align(
                   alignment: Alignment.bottomRight,
                   child: Container(
-                    margin: EdgeInsets.only(top: 80),
+                    margin: const EdgeInsets.only(top: 80),
                     height: 180,
                     width: 180,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       image: DecorationImage(
                         image: AssetImage('lib/views/assets/carabaoFarmer.png'),
                       ),
@@ -85,7 +92,7 @@ class HomeView extends StatelessWidget {
                   child: Container(
                     height: 130,
                     width: 150,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       image: DecorationImage(
                         image: AssetImage('lib/views/assets/logo.png'),
                       ),
@@ -94,8 +101,8 @@ class HomeView extends StatelessWidget {
                 ),
 
                 Container(
-                  padding: EdgeInsets.fromLTRB(25, 100, 20, 0),
-                  child: StrokeText(
+                  padding: const EdgeInsets.fromLTRB(25, 100, 20, 0),
+                  child: const StrokeText(
                     text: 'Magandang araw,',
                     textStyle: TextStyle(
                       fontFamily: 'Space Grotesk',
@@ -108,11 +115,11 @@ class HomeView extends StatelessWidget {
                 ),
 
                 Container(
-                  padding: EdgeInsets.fromLTRB(25, 140, 20, 0),
+                  padding: const EdgeInsets.fromLTRB(25, 140, 20, 0),
                   child: Container(
                     height: 120,
                     width: 120,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       image: DecorationImage(
                         image: AssetImage('lib/views/assets/magsasaka.png'),
                       ),
@@ -128,7 +135,6 @@ class HomeView extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  //first button
                   GestureDetector(
                     onTap: () {
                       Navigator.push(
@@ -143,7 +149,7 @@ class HomeView extends StatelessWidget {
                       height: 170,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
-                        color: Color(0xFFF2F2F2),
+                        color: const Color(0xFFF2F2F2),
                       ),
                       child: Padding(
                         padding: const EdgeInsets.fromLTRB(20, 20, 0, 0),
@@ -152,7 +158,7 @@ class HomeView extends StatelessWidget {
                             Container(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
-                                color: Color(0xFFCBFFDD),
+                                color: const Color(0xFFCBFFDD),
                               ),
                               width: 45,
                               height: 45,
@@ -162,18 +168,16 @@ class HomeView extends StatelessWidget {
                               height: 30,
                               width: 30,
                               margin: const EdgeInsets.fromLTRB(8, 8, 0, 0),
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 image: DecorationImage(
-                                  image: AssetImage(
-                                    'lib/views/assets/scan.png',
-                                  ),
+                                  image: AssetImage('lib/views/assets/scan.png'),
                                 ),
                               ),
                             ),
 
                             Container(
-                              padding: EdgeInsets.fromLTRB(0, 50, 0, 0),
-                              child: Text(
+                              padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
+                              child: const Text(
                                 "I-Scan sa Camera",
                                 style: TextStyle(
                                   fontSize: 20,
@@ -185,10 +189,10 @@ class HomeView extends StatelessWidget {
                             ),
 
                             Container(
-                              padding: EdgeInsets.fromLTRB(0, 115, 0, 0),
+                              padding: const EdgeInsets.fromLTRB(0, 115, 0, 0),
                               width: 80,
                               child: RichText(
-                                text: TextSpan(
+                                text: const TextSpan(
                                   text: "Realtime na AI Scanning",
                                   style: TextStyle(
                                     fontSize: 12,
@@ -206,18 +210,19 @@ class HomeView extends StatelessWidget {
                     ),
                   ),
 
-                  //second
                   GestureDetector(
                     onTap: () async {
                       final scanner = ScannerViewModel();
                       await scanner.pickAndProcessImage(context);
+                      // Refresh HomeView after gallery scan completes
+                      if (mounted) setState(() {});
                     },
                     child: Container(
                       width: 165,
                       height: 170,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
-                        color: Color(0xFFF2F2F2),
+                        color: const Color(0xFFF2F2F2),
                       ),
                       child: Padding(
                         padding: const EdgeInsets.fromLTRB(20, 20, 0, 0),
@@ -226,7 +231,7 @@ class HomeView extends StatelessWidget {
                             Container(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
-                                color: Color(0xFFCBFFDD),
+                                color: const Color(0xFFCBFFDD),
                               ),
                               width: 45,
                               height: 45,
@@ -236,18 +241,16 @@ class HomeView extends StatelessWidget {
                               height: 30,
                               width: 30,
                               margin: const EdgeInsets.fromLTRB(8, 8, 0, 0),
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 image: DecorationImage(
-                                  image: AssetImage(
-                                    'lib/views/assets/gallery.png',
-                                  ),
+                                  image: AssetImage('lib/views/assets/gallery.png'),
                                 ),
                               ),
                             ),
 
                             Container(
-                              padding: EdgeInsets.fromLTRB(0, 50, 0, 0),
-                              child: Text(
+                              padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
+                              child: const Text(
                                 "Mag-upload mula sa Gallery",
                                 style: TextStyle(
                                   fontSize: 20,
@@ -259,10 +262,10 @@ class HomeView extends StatelessWidget {
                             ),
 
                             Container(
-                              padding: EdgeInsets.fromLTRB(0, 115, 0, 0),
+                              padding: const EdgeInsets.fromLTRB(0, 115, 0, 0),
                               width: 80,
                               child: RichText(
-                                text: TextSpan(
+                                text: const TextSpan(
                                   text: "Magselect ng dating photo",
                                   style: TextStyle(
                                     fontSize: 12,
@@ -285,14 +288,12 @@ class HomeView extends StatelessWidget {
 
             ///lower body
             Padding(
-              padding: EdgeInsetsGeometry.all(20),
-
-              ///Mga nakaraang na-diagnose and VIEW ALL header
+              padding: const EdgeInsets.all(20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  SizedBox(
-                    width: 200,
+                  const SizedBox(
+                    width: 240,
                     child: Text(
                       'Mga nakaraang na-diagnose',
                       style: TextStyle(
@@ -307,15 +308,19 @@ class HomeView extends StatelessWidget {
 
                   GestureDetector(
                     onTap: () {
-                      // Put this on your Library Card's onTap:
                       Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) => const HistoryView(),
                         ),
-                      );
+                      ).then((_) {
+                        // FIX: setState now works because this is a StatefulWidget
+                        if (mounted) {
+                          setState(() {});
+                        }
+                      });
                     },
-                    child: Text(
+                    child: const Text(
                       'View All',
                       style: TextStyle(
                         fontFamily: 'Space Grotesk',
@@ -330,46 +335,57 @@ class HomeView extends StatelessWidget {
             ),
 
             Container(
-              padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+              padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
               width: double.infinity,
-              height: 150,
-              child: ScannerViewModel.scanHistory.isEmpty
+              height: 250,
+              child: ScannerViewModel.scanHistoryMap.isEmpty
                   ? const Center(
-                      child: Text(
-                        'Mag-scan na para makita ang resulta dito!',
-                        style: TextStyle(color: Colors.grey, fontSize: 14),
-                      ),
-                    )
+                child: Text(
+                  'Mag-scan na para makita ang resulta dito!',
+                  style: TextStyle(color: Colors.grey, fontSize: 14),
+                ),
+              )
                   : ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: ScannerViewModel.scanHistory.length,
-                      itemBuilder: (context, index) {
-                        final disease = ScannerViewModel.scanHistory[index];
+                scrollDirection: Axis.horizontal,
+                itemCount: ScannerViewModel.scanHistoryMap.length,
+                itemBuilder: (context, index) {
+                  final reversedIndex = (ScannerViewModel.scanHistoryMap.length - 1) - index;
+                  final historyEntry = ScannerViewModel.scanHistoryMap.values.elementAt(reversedIndex);
 
-                        return Padding(
-                          padding: const EdgeInsets.only(right: 12.0),
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => DiagnosticResult(
-                                    isFromScanner: false,
-                                    disease: disease,
-                                  ),
-                                ),
-                              );
-                            },
-                            child: DiseaseCard(
-                              name: disease.name,
-                              date: 'Recently',
-                              severity: disease.severity,
-                              layoutType: CardType.homePageRecent,
+                  final disease = historyEntry['disease'] as DiseaseModel;
+                  final scanDate = historyEntry['date'] as String;
+                  final imagePath = historyEntry['imagePath'] as String;
+                  final confidence = historyEntry['confidence'] as double;
+
+                  return Padding(
+                    padding: const EdgeInsets.only(right: 12.0),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => DiagnosticResult(
+                              isFromScanner: false,
+                              disease: disease,
+                              imagePath: imagePath,
+                              confidenceLevel: confidence,
+                              scanDate: scanDate,
                             ),
                           ),
                         );
                       },
+                      child: DiseaseCard(
+                        name: disease.name,
+                        date: scanDate,
+                        severity: disease.severity,
+                        layoutType: CardType.homePageRecent,
+                        imagePath: imagePath,
+                        confidence: confidence,
+                      ),
                     ),
+                  );
+                },
+              ),
             ),
           ],
         ),
