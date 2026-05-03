@@ -46,7 +46,7 @@ class LocalDiseaseDB {
     DiseaseModel(
       id: "banana_healthy",
       name: "Malusog na Saging",
-      severity: "MALUSOG",
+      severity: "HEALTHY",
       description:
           "Ang malusog na halaman ng saging ay may malapad at matingkad na berdeng dahon na walang spots, streaks, o discoloration. Ipinapakita nito ang malakas na upright growth, makapal na pseudostem, at consistent na leaf production. Ang tamang nutrisyon, water management, at sikat ng araw ang mga susi sa pagpapanatili ng kalusugan ng halaman.",
       treatments: TreatmentPlan(
@@ -207,7 +207,7 @@ class LocalDiseaseDB {
     DiseaseModel(
       id: "coconut_fruit_healthy",
       name: "Malusog na Bunga ng Niyog",
-      severity: "MALUSOG",
+      severity: "HEALTHY",
       description:
           "Ang malusog na bunga ng niyog ay firm, well-formed, at walang cracks, discoloration, o pest damage. Ang husk ay intact, at ang tubig sa loob ng mga young coconuts ay malinaw at sariwa. Ang malusog na coconut production ay depende sa tamang nutrisyon, lalo na ang potassium, magandang soil drainage, at regular na farm maintenance.",
       treatments: TreatmentPlan(
@@ -348,7 +348,7 @@ class LocalDiseaseDB {
     DiseaseModel(
       id: "corn_healthy",
       name: "Malusog na Mais",
-      severity: "MALUSOG",
+      severity: "HEALTHY",
       description:
           "Ang malusog na halaman ng mais ay may malalakas na berdeng dahon, upright growth, at uniform development na walang visible spots, rust, o lesions. Ipinapakita nito ang magandang root establishment at balanced nutrient uptake, na nagreresulta sa optimal photosynthesis at high yield potential. Sa real farming practice, ang pagpapanatili ng malusog na mais ay depende sa proper soil management, balanced fertilization, pest prevention, at good water control.",
       treatments: TreatmentPlan(
@@ -409,7 +409,7 @@ class LocalDiseaseDB {
     DiseaseModel(
       id: "pineapple_fruit_fasciation",
       name: "Pineapple Fruit Fasciation Disorder",
-      severity: "MABABANG PELIGRO",
+      severity: "LOW RISK",
       description:
           "Ang Pineapple fruit fasciation disorder ay isang physiological condition kung saan ang bunga ay abnormal na nagde-develop ng flattened, fused, o irregular shapes. Hindi ito dulot ng bacteria, fungi, o viruses kundi kadalasang linked sa hormonal imbalance, genetic factors, environmental stress, o early damage sa growing point ng halaman. Bagama't edible pa rin ang bunga, nababawasan ang market value nito dahil sa itsura.",
       treatments: TreatmentPlan(
@@ -449,7 +449,7 @@ class LocalDiseaseDB {
     DiseaseModel(
       id: "pineapple_healthy",
       name: "Malusog na Pinya",
-      severity: "MALUSOG",
+      severity: "HEALTHY",
       description:
           "Ang malusog na halaman ng pinya ay may firm, green leaves na walang spots, rot, o discoloration. Ang bunga ay well-shaped, evenly developed, at walang deformities o decay. Ang malusog na paglaki ay depende sa tamang soil nutrition, lalo na ang potassium, magandang drainage, at epektibong pest management. Ang malulusog na halaman ng pinya ay mas resistant sa diseases tulad ng fruit rot at crown rot, na nagreresulta sa better harvest quality.",
       treatments: TreatmentPlan(
@@ -489,7 +489,7 @@ class LocalDiseaseDB {
     DiseaseModel(
       id: "pineapple_multiple_crown",
       name: "Pineapple Multiple Crown Disorder",
-      severity: "MABABANG PELIGRO",
+      severity: "LOW RISK",
       description:
           "Ang Pineapple multiple crown disorder ay isang physiological condition kung saan ang bunga ay nagde-develop ng more than one crown sa halip na isang normal na crown. Hindi ito dulot ng fungi, bacteria, o viruses kundi linked sa genetic variation, hormonal imbalance, environmental stress, o damage during early fruit formation. Bagama't edible pa rin ang bunga, itinuturing itong abnormal at may mas mababang market value.",
       treatments: TreatmentPlan(
@@ -530,7 +530,7 @@ class LocalDiseaseDB {
     DiseaseModel(
       id: "sugarcane_healthy",
       name: "Malusog na Tubo",
-      severity: "MALUSOG",
+      severity: "HEALTHY",
       description:
           "Ang malusog na halaman ng tubo ay may matangkad at matatag na stalks na may berdeng dahon, strong tillering, at uniform growth. Walang signs ng pests, leaf spots, o stem damage. Ang malusog na sugarcane development ay depende sa tamang nutrient balance (lalo na nitrogen, phosphorus, at potassium), sapat na water supply, at magandang soil conditions.",
       treatments: TreatmentPlan(
@@ -631,7 +631,7 @@ class LocalDiseaseDB {
     DiseaseModel(
       id: "unknown",
       name: "Unknown",
-      severity: "HINDI TUKOY",
+      severity: "UNKNOWN",
       description:
           "Hindi nakilala ng sistema ang sakit o kondisyon ng halaman. Maaaring kumuha ng mas malinaw na litrato o kumonsulta sa lokal na agricultural expert para sa tamang diagnosis.",
       treatments: TreatmentPlan(
@@ -658,5 +658,5 @@ class LocalDiseaseDB {
   }
 
   static DiseaseModel get unknown =>
-      diseases.firstWhere((d) => d.id == 'unknown');
+      diseases.firstWhere((d) => d.id == 'UNKNOWN');
 }

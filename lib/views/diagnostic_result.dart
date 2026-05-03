@@ -128,7 +128,7 @@ class DiagnosticResult extends StatelessWidget {
                             children: [
                               //immediate action
                               Container(
-                                padding: EdgeInsets.fromLTRB(40, 0, 0, 0),
+                                padding: EdgeInsets.fromLTRB(40, 0, 0, 10),
                                 child: Text(
                                   maxLines: 2,
                                   'Immediate Action',
@@ -141,7 +141,7 @@ class DiagnosticResult extends StatelessWidget {
                                 ),
                               ),
                               Container(
-                                padding: EdgeInsets.fromLTRB(40, 20, 0, 0),
+                                padding: EdgeInsets.fromLTRB(40, 30, 0, 10),
                                 child: RichText(
                                   text: TextSpan(
                                     text:
@@ -188,7 +188,7 @@ class DiagnosticResult extends StatelessWidget {
                                 ),
                               ),
                               Container(
-                                padding: EdgeInsets.fromLTRB(40, 20, 0, 0),
+                                padding: EdgeInsets.fromLTRB(40, 30, 0, 10),
                                 child: RichText(
                                   text: TextSpan(
                                     text:
@@ -235,7 +235,7 @@ class DiagnosticResult extends StatelessWidget {
                                 ),
                               ),
                               Container(
-                                padding: EdgeInsets.fromLTRB(40, 20, 0, 0),
+                                padding: EdgeInsets.fromLTRB(40, 30, 0, 10),
                                 child: RichText(
                                   text: TextSpan(
                                     text:
@@ -270,7 +270,7 @@ class DiagnosticResult extends StatelessWidget {
                           endChild: Stack(
                             children: [
                               Container(
-                                padding: EdgeInsets.only(left: 40),
+                                padding: EdgeInsets.fromLTRB(40, 0, 0, 0),
                                 child: Text(
                                   maxLines: 2,
                                   'Biological',
@@ -283,7 +283,7 @@ class DiagnosticResult extends StatelessWidget {
                                 ),
                               ),
                               Container(
-                                padding: EdgeInsets.fromLTRB(40, 20, 0, 0),
+                                padding: EdgeInsets.fromLTRB(40, 30, 0, 10),
                                 child: RichText(
                                   text: TextSpan(
                                     text:

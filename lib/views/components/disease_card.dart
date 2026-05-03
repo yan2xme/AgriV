@@ -29,6 +29,15 @@ class DiseaseCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Color severityColor = switch (severity) {
+      'HEALTHY' => const Color(0xFF4CAF50),      // Green 🟢
+      'LOW RISK' => const Color(0xFF4CAF50),      // Green 🟢
+      'MID RISK' => const Color(0xFFE6B900),   // Amber/Yellow 🟡
+      'HIGH RISK' => const Color(0xFFCC0000),     // Red 🔴
+      'UNKNOWN' => const Color(0xFFB71C1C), // Deep Red 🩸
+      _ => const Color(0xFF757776),          // Default Grey ⚪
+    };
+
     switch (layoutType) {
       ///1
       case CardType.homePageRecent:
@@ -133,7 +142,7 @@ class DiseaseCard extends StatelessWidget {
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 12,
-                  color: Color(0xFFCC0000),
+                  color: severityColor,
                 ),
               ),
             ),
@@ -187,14 +196,20 @@ class DiseaseCard extends StatelessWidget {
             ),
 
             Container(
-              padding: EdgeInsets.fromLTRB(20, 150, 20, 0),
-              child: Text(
-                name,
-                style: TextStyle(
-                  fontSize: 20,
-                  height: 0.9,
-                  fontWeight: FontWeight.w800,
-                  color: Color(0xFF4F6F52),
+              padding: EdgeInsets.fromLTRB(20, 145, 20, 0),
+              width: 280,
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  name,
+                  maxLines: 2,
+                  style: TextStyle(
+                    fontSize: 22,
+                    height: 0.9,
+                    fontWeight: FontWeight.w800,
+                    color: Color(0xFF4F6F52),
+                  ),
                 ),
               ),
             ),
@@ -228,9 +243,9 @@ class DiseaseCard extends StatelessWidget {
             ),
 
             Container(
-              margin: EdgeInsets.fromLTRB(100, 227, 0, 0),
-              width: 12,
-              height: 12,
+              margin: EdgeInsets.fromLTRB(115, 229, 0, 0),
+              width: 10,
+              height: 10,
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage('lib/views/assets/next.png'),
@@ -238,16 +253,6 @@ class DiseaseCard extends StatelessWidget {
               ),
             ),
 
-            Container(
-              margin: EdgeInsets.fromLTRB(170, 110, 0, 0),
-              width: 12,
-              height: 12,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage('lib/views/assets/next.png'),
-                ),
-              ),
-            ),
 
             Container(
               margin: EdgeInsets.fromLTRB(273, 150, 0, 0),
@@ -255,7 +260,7 @@ class DiseaseCard extends StatelessWidget {
               height: 20,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(20)),
-                color: Color(0xFFFFE1E1),
+                color: severityColor.withAlpha(40),
               ),
             ),
 
@@ -266,7 +271,7 @@ class DiseaseCard extends StatelessWidget {
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 12,
-                  color: Color(0xFFCC0000),
+                  color: severityColor,
                 ),
               ),
             ),
@@ -316,31 +321,37 @@ class DiseaseCard extends StatelessWidget {
             ),
 
             Container(
-              width: 300,
-              padding: EdgeInsets.fromLTRB(140, 20, 20, 0),
-              child: Text(
-                maxLines: 2,
-                name,
-                style: TextStyle(
-                  fontSize: 20,
-                  height: 0.9,
-                  fontWeight: FontWeight.w800,
-                  color: Color(0xFF4F6F52),
+              width: 450,
+              padding: EdgeInsets.fromLTRB(20, 180, 20, 0),
+              child: Align(
+                alignment: Alignment.center,
+                child: Text(
+                  maxLines: 2,
+                  name,
+                  style: TextStyle(
+                    fontSize: 22,
+                    height: 0.9,
+                    fontWeight: FontWeight.w800,
+                    color: Color(0xFF4F6F52),
+                  ),
                 ),
               ),
             ),
 
             Container(
               padding: EdgeInsets.fromLTRB(140, 100, 20, 0),
-              child: RichText(
-                text: TextSpan(
-                  text: (date),
-                  style: TextStyle(
-                    fontSize: 12,
-                    height: 1,
-                    fontFamily: 'Space Grotesk',
-                    fontWeight: FontWeight.w500,
-                    color: Color(0xFF757776),
+              child: Align(
+                alignment: Alignment.center,
+                child: RichText(
+                  text: TextSpan(
+                    text: (date),
+                    style: TextStyle(
+                      fontSize: 12,
+                      height: 1,
+                      fontFamily: 'Space Grotesk',
+                      fontWeight: FontWeight.w500,
+                      color: Color(0xFF757776),
+                    ),
                   ),
                 ),
               ),
@@ -352,7 +363,7 @@ class DiseaseCard extends StatelessWidget {
               height: 20,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(20)),
-                color: Color(0xFFFFE1E1),
+                color: severityColor.withAlpha(10),
               ),
             ),
 
@@ -363,7 +374,7 @@ class DiseaseCard extends StatelessWidget {
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 12,
-                  color: Color(0xFFCC0000),
+                  color: severityColor,
                 ),
               ),
             ),
@@ -459,7 +470,7 @@ class DiseaseCard extends StatelessWidget {
             ),
 
             Container(
-              margin: EdgeInsets.fromLTRB(40, 18, 0, 0),
+              margin: EdgeInsets.fromLTRB(25, 18, 0, 0),
               width: isFromScanner ? 140 : 300,
               height: 140,
               decoration: BoxDecoration(
@@ -474,32 +485,41 @@ class DiseaseCard extends StatelessWidget {
             ),
 
             Container(
-              width: 400,
-              padding: EdgeInsets.fromLTRB(55, 170, 20, 0),
-              child: Text(
-                maxLines: 2,
-                name,
-                style: TextStyle(
-                  fontSize: 32,
-                  height: 0.9,
-                  fontWeight: FontWeight.w800,
-                  color: Color(0xFF4F6F52),
+              width: 450,
+              padding: EdgeInsets.fromLTRB(20, 180, 20, 0),
+              child: Align(
+                alignment: Alignment.center,
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    maxLines: 2,
+                    name,
+                    style: TextStyle(
+                      fontSize: 24,
+                      height: 0.9,
+                      fontWeight: FontWeight.w800,
+                      color: Color(0xFF4F6F52),
+                    ),
+                  ),
                 ),
               ),
             ),
 
             if (isFromScanner)
               Container(
-                padding: EdgeInsets.fromLTRB(135, 250, 20, 0),
-                child: RichText(
-                  text: TextSpan(
-                    text: (date),
-                    style: TextStyle(
-                      fontSize: 12,
-                      height: 1,
-                      fontFamily: 'Space Grotesk',
-                      fontWeight: FontWeight.w500,
-                      color: Color(0xFF757776),
+                padding: EdgeInsets.fromLTRB(20, 250, 20, 0),
+                child: Align(
+                  alignment: Alignment.center,
+                  child: RichText(
+                    text: TextSpan(
+                      text: (date),
+                      style: TextStyle(
+                        fontSize: 12,
+                        height: 1,
+                        fontFamily: 'Space Grotesk',
+                        fontWeight: FontWeight.w500,
+                        color: Color(0xFF757776),
+                      ),
                     ),
                   ),
                 ),
@@ -507,11 +527,11 @@ class DiseaseCard extends StatelessWidget {
 
             Container(
               margin: EdgeInsets.fromLTRB(176, 210, 0, 0),
-              width: 95,
+              width: 105,
               height: 25,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(20)),
-                color: Color(0xFFFFE1E1),
+                color: severityColor.withAlpha(10),
               ),
             ),
 
@@ -522,13 +542,13 @@ class DiseaseCard extends StatelessWidget {
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 16,
-                  color: Color(0xFFCC0000),
+                  color: severityColor,
                 ),
               ),
             ),
 
             Container(
-              margin: EdgeInsets.fromLTRB(100, 210, 0, 0),
+              margin: EdgeInsets.fromLTRB(90, 210, 0, 0),
               child: Text(
                 'Severity:',
                 style: TextStyle(
@@ -541,7 +561,7 @@ class DiseaseCard extends StatelessWidget {
 
             if (isFromScanner)
               Container(
-                margin: EdgeInsets.fromLTRB(200, 15, 0, 0),
+                margin: EdgeInsets.fromLTRB(190, 15, 0, 0),
                 width: 140,
                 height: 140,
                 child: PieChart(
@@ -568,7 +588,7 @@ class DiseaseCard extends StatelessWidget {
             if (isFromScanner)
               Container(
                 width: 400,
-                padding: EdgeInsets.fromLTRB(225, 60, 20, 0),
+                padding: EdgeInsets.fromLTRB(215, 60, 20, 0),
                 child: RichText(
                   text: TextSpan(
                     text: ('Confidence:'),
@@ -586,12 +606,12 @@ class DiseaseCard extends StatelessWidget {
             if (isFromScanner)
               Container(
                 width: 400,
-                padding: EdgeInsets.fromLTRB(225, 80, 20, 0),
+                padding: EdgeInsets.fromLTRB(215, 80, 20, 0),
                 child: RichText(
                   text: TextSpan(
                     text: ('${confidence!.toStringAsFixed(2)}%'),
                     style: TextStyle(
-                      fontSize: 28,
+                      fontSize: 22,
                       height: 1,
                       fontFamily: 'Space Grotesk',
                       fontWeight: FontWeight.w500,
