@@ -20,7 +20,7 @@ class ChatViewModel extends ChangeNotifier {
     if (apiKey == null) throw Exception('API key not found in .env');
 
     _model = GenerativeModel(
-      model: 'gemini-3-flash-preview',
+      model: 'gemini-3.1-flash-lite-preview',
       apiKey: apiKey,
       systemInstruction: Content.system(
           "Isa kang expert agricultural AI assistant para sa app na AgriVysor."
