@@ -1,6 +1,6 @@
-# Agrivysor Ryzen 🌾
+# AgriVysor 🌾
 
-Agrivysor Ryzen is an advanced agricultural diagnostic tool built with Flutter. It leverages machine learning to identify diseases and pests in various crops, providing farmers and enthusiasts with instant insights and actionable recommendations.
+AgriVysor is an advanced agricultural diagnostic tool built with Flutter. It leverages machine learning to identify diseases and pests in various crops, providing farmers and enthusiasts with instant insights and actionable recommendations.
 
 ## 🚀 Features
 
@@ -12,7 +12,7 @@ Agrivysor Ryzen is an advanced agricultural diagnostic tool built with Flutter. 
 
 ## 🧠 Machine Learning
 
-The core of Agrivysor Ryzen is a custom-trained **MobileNetV3** model (`plantmodel_MNv3.tflite`). This lightweight yet powerful architecture is optimized for mobile performance, ensuring quick and accurate predictions.
+The core of AgriVysor is a custom-trained **MobileNetV3** model (`plantmodel_MNv3.tflite`). This lightweight yet powerful architecture is optimized for mobile performance, ensuring quick and accurate predictions.
 
 ### Supported Classes (32)
 
