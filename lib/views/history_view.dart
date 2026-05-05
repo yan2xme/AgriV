@@ -12,7 +12,6 @@ class HistoryView extends StatefulWidget {
 }
 
 class _HistoryViewState extends State<HistoryView> {
-
   // Method to clear the history with a confirmation dialog
   void _confirmClearHistory() {
     showDialog(
@@ -22,7 +21,10 @@ class _HistoryViewState extends State<HistoryView> {
           backgroundColor: Colors.white,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
-            side: const BorderSide(color: Color(0xFF4F6F52), width: 2), // Neo-brutalist border
+            side: const BorderSide(
+              color: Color(0xFF4F6F52),
+              width: 2,
+            ), // Neo-brutalist border
           ),
           title: const Text(
             'Clear History?',
@@ -44,25 +46,40 @@ class _HistoryViewState extends State<HistoryView> {
             TextButton(
               onPressed: () => Navigator.pop(context),
               child: const Text(
-                  'Cancel',
-                  style: TextStyle(color: Colors.grey, fontFamily: 'Space Grotesk', fontWeight: FontWeight.bold)
+                'Cancel',
+                style: TextStyle(
+                  color: Colors.grey,
+                  fontFamily: 'Space Grotesk',
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFFCC0000), // Danger Red
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
               ),
-              onPressed: () {
-                setState(() {
-                  // The magic line that wipes the map clean!
-                  ScannerViewModel.scanHistoryMap.clear();
-                });
-                Navigator.pop(context); // Close dialog
+              onPressed: () async {
+                // 🛠️ MAKE THIS ASYNC
+
+                // 🛠️ THE FIX: Wipe both RAM and Disk!
+                await ScannerViewModel.clearAllHistory();
+
+                setState(() {}); // Force the screen to refresh
+
+                if (context.mounted) {
+                  Navigator.pop(context); // Close dialog
+                }
               },
               child: const Text(
-                  'Clear All',
-                  style: TextStyle(color: Colors.white, fontFamily: 'Space Grotesk', fontWeight: FontWeight.bold)
+                'Clear All',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontFamily: 'Space Grotesk',
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ],
@@ -95,7 +112,11 @@ class _HistoryViewState extends State<HistoryView> {
             Padding(
               padding: const EdgeInsets.only(right: 8.0),
               child: IconButton(
-                icon: const Icon(Icons.delete_outline, color: Color(0xFFCC0000), size: 28),
+                icon: const Icon(
+                  Icons.delete_outline,
+                  color: Color(0xFFCC0000),
+                  size: 28,
+                ),
                 onPressed: _confirmClearHistory,
               ),
             ),
@@ -137,55 +158,60 @@ class _HistoryViewState extends State<HistoryView> {
               width: double.maxFinite,
               child: ScannerViewModel.scanHistoryMap.isEmpty
                   ? const Center(
-                child: Text(
-                  'Wala pang na-scan.',
-                  style: TextStyle(
-                    color: Colors.grey,
-                    fontSize: 16,
-                    fontFamily: 'Space Grotesk',
-                  ),
-                ),
-              )
+                      child: Text(
+                        'Wala pang na-scan.',
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 16,
+                          fontFamily: 'Space Grotesk',
+                        ),
+                      ),
+                    )
                   : ListView.builder(
-                itemCount: ScannerViewModel.scanHistoryMap.length,
-                itemBuilder: (context, index) {
-                  final reversedIndex = (ScannerViewModel.scanHistoryMap.length - 1) - index;
-                  final historyEntry = ScannerViewModel.scanHistoryMap.values.elementAt(reversedIndex);
+                      itemCount: ScannerViewModel.scanHistoryMap.length,
+                      itemBuilder: (context, index) {
+                        final reversedIndex =
+                            (ScannerViewModel.scanHistoryMap.length - 1) -
+                            index;
+                        final historyEntry = ScannerViewModel
+                            .scanHistoryMap
+                            .values
+                            .elementAt(reversedIndex);
 
-                  final disease = historyEntry['disease'] as DiseaseModel;
-                  final scanDate = historyEntry['date'] as String;
-                  final confidence = historyEntry['confidence'] as double;
-                  final imagePath = historyEntry['imagePath'] as String;
+                        final disease = historyEntry['disease'] as DiseaseModel;
+                        final scanDate = historyEntry['date'] as String;
+                        final confidence = historyEntry['confidence'] as double;
+                        final imagePath = historyEntry['imagePath'] as String;
 
-                  return Padding(
-                    padding: const EdgeInsets.only(bottom: 20.0),
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => DiagnosticResult(
-                              isFromScanner: false,
-                              disease: disease,
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: 20.0),
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => DiagnosticResult(
+                                    isFromScanner: false,
+                                    disease: disease,
+                                    imagePath: imagePath,
+                                    confidenceLevel: confidence,
+                                    scanDate: scanDate,
+                                  ),
+                                ),
+                              );
+                            },
+                            child: DiseaseCard(
+                              name: disease.name,
+                              date: scanDate,
+                              severity: disease.severity,
+                              layoutType: CardType.historyPage,
+                              confidence: confidence,
                               imagePath: imagePath,
-                              confidenceLevel: confidence,
-                              scanDate: scanDate,
                             ),
                           ),
                         );
                       },
-                      child: DiseaseCard(
-                        name: disease.name,
-                        date: scanDate,
-                        severity: disease.severity,
-                        layoutType: CardType.historyPage,
-                        confidence: confidence,
-                        imagePath: imagePath,
-                      ),
                     ),
-                  );
-                },
-              ),
             ),
           ),
         ],

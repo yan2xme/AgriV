@@ -44,20 +44,20 @@ dependencies:
   camerawesome: ^2.5.0
   timeline_tile: ^2.0.0
   tab_container: ^3.5.3
+  flutter_launcher_icons: ^0.13.1
 
   image: any
   flutter_markdown: ^0.7.7+1
   google_generative_ai: ^0.4.7
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
 dev_dependencies:
+
   flutter_test:
     sdk: flutter
 
-  # The "flutter_lints" package below contains a set of recommended lints to
-  # encourage good coding practices. The lint set provided by the package is
-  # activated in the `analysis_options.yaml` file located at the root of your
-  # package. See that file for information about deactivating specific lint
-  # rules and activating additional ones.
   flutter_lints: ^6.0.0
+  flutter_launcher_icons: ^0.13.1 # Add this line
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -102,3 +102,9 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "lib/views/assets/icon.png" # Make sure this path points to your logo!
+  min_sdk_android: 21 # Optional but recommended

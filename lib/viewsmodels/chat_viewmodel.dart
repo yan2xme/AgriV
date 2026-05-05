@@ -5,9 +5,9 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:path_provider/path_provider.dart';
 
 class ChatViewModel extends ChangeNotifier {
-  // Constraint: Using a Map instead of an array/List
   final Map<DateTime, Map<String, dynamic>> _chatHistory = {};
   Map<DateTime, Map<String, dynamic>> get chatHistory => _chatHistory;
 
@@ -15,7 +15,6 @@ class ChatViewModel extends ChangeNotifier {
   final ImagePicker _picker = ImagePicker();
 
   ChatViewModel() {
-    // Securely load the API key
     final apiKey = dotenv.env['GEMINI_API_KEY'];
     if (apiKey == null) throw Exception('API key not found in .env');
 
@@ -29,14 +28,65 @@ class ChatViewModel extends ChangeNotifier {
     );
   }
 
-  // Initial prompt builder using passed data
-// Update this signature to accept the imagePath
+  // ==========================================
+  // HELPER: Determine accurate MIME type via Magic Numbers
+  // ==========================================
+  String _determineMimeType(Uint8List bytes) {
+    if (bytes.length >= 3 && bytes[0] == 0xFF && bytes[1] == 0xD8 && bytes[2] == 0xFF) {
+      return 'image/jpeg';
+    }
+    if (bytes.length >= 4 && bytes[0] == 0x89 && bytes[1] == 0x50 && bytes[2] == 0x4E && bytes[3] == 0x47) {
+      return 'image/png';
+    }
+    if (bytes.length >= 12 && bytes[0] == 0x52 && bytes[1] == 0x49 && bytes[2] == 0x46 && bytes[3] == 0x46) {
+      return 'image/webp';
+    }
+    return 'image/jpeg'; // Ultimate fallback
+  }
+
+  // ==========================================
+  // HELPER: Persist image bypassing Android locks
+  // ==========================================
+  Future<String?> _persistImageLocally(String? imagePath) async {
+    if (imagePath == null) return null;
+    if (imagePath.startsWith('lib/') || imagePath.startsWith('assets/')) return imagePath;
+
+    try {
+      // Use XFile to extract bytes natively, bypassing Scoped Storage locks
+      final xFile = XFile(imagePath);
+      final bytes = await xFile.readAsBytes();
+
+      if (bytes.isEmpty) {
+        print("🚨 XFile read 0 bytes from cache!");
+        return imagePath;
+      }
+
+      final appDir = await getApplicationDocumentsDirectory();
+      final fileName = imagePath.split('/').last;
+      final permanentFile = File('${appDir.path}/$fileName');
+
+      await permanentFile.writeAsBytes(bytes);
+      return permanentFile.path;
+    } catch (e) {
+      print("🚨 Error saving image permanently: $e");
+      return imagePath;
+    }
+  }
+
+  // ==========================================
+  // CORE CHAT LOGIC
+  // ==========================================
+  void clearHistory() {
+    _chatHistory.clear();
+    notifyListeners();
+  }
+
   void initializeChat(String diseaseName, String description, String? imagePath) {
+    if (diseaseName.isEmpty && imagePath == null) return;
     if (_chatHistory.isNotEmpty) return;
 
     final initialPrompt = "Disease: $diseaseName\n\nDescription: $description\n\nProvide more insights about the disease and treatment.";
 
-    // If an imagePath exists, convert it to an XFile and send it
     XFile? initialImage;
     if (imagePath != null) {
       initialImage = XFile(imagePath);
@@ -48,6 +98,7 @@ class ChatViewModel extends ChangeNotifier {
   Future<void> _generateAIResponse(String prompt, {String? imagePath}) async {
     try {
       final responseKey = DateTime.now();
+
       _chatHistory[responseKey] = {'text': 'Thinking...', 'isUser': false};
       notifyListeners();
 
@@ -56,35 +107,20 @@ class ChatViewModel extends ChangeNotifier {
       if (imagePath != null) {
         Uint8List imageBytes;
 
-        // 1. Check if the image is a bundled asset (from Library)
         if (imagePath.startsWith('lib/') || imagePath.startsWith('assets/')) {
-          try {
-            // Load bytes directly from the app bundle
-            final byteData = await rootBundle.load(imagePath);
-            imageBytes = byteData.buffer.asUint8List();
-          } catch (e) {
-            print("🚨 ERROR: Asset missing from bundle: $imagePath");
-            throw Exception("Asset missing");
-          }
-        }
-        // 2. Otherwise, it's a real file (from Camera/Scanner)
-        else {
-          final file = File(imagePath);
-          if (!await file.exists()) {
-            print("🚨 ERROR: Image file not found at path: $imagePath");
-            throw Exception("Image file missing");
-          }
-          imageBytes = await file.readAsBytes();
+          final byteData = await rootBundle.load(imagePath);
+          imageBytes = byteData.buffer.asUint8List();
+        } else {
+          // Use XFile to safely read the bytes without triggering permission errors
+          final xFile = XFile(imagePath);
+          imageBytes = await xFile.readAsBytes();
         }
 
-        // 3. Dynamically determine the mime type
-        String mimeType = 'image/jpeg';
-        if (imagePath.toLowerCase().endsWith('.png')) {
-          mimeType = 'image/png';
-        } else if (imagePath.toLowerCase().endsWith('.webp')) {
-          mimeType = 'image/webp';
+        if (imageBytes.isEmpty) {
+          throw Exception("Image bytes are empty! Android blocked the read.");
         }
 
+        String mimeType = _determineMimeType(imageBytes);
         parts.add(DataPart(mimeType, imageBytes));
       }
 
@@ -98,6 +134,7 @@ class ChatViewModel extends ChangeNotifier {
 
     } catch (e) {
       print("🚨 GEMINI API ERROR: $e");
+
       _chatHistory[DateTime.now()] = {
         'text': 'Pasensya na, may error sa pag-connect o pagbasa ng image. Please try again.',
         'isUser': false
@@ -106,25 +143,31 @@ class ChatViewModel extends ChangeNotifier {
     }
   }
 
-  // And don't forget to pass the imagePath to the generator from sendMessage!
   Future<void> sendMessage(String text, {required bool isUser, XFile? image}) async {
     if (text.trim().isEmpty && image == null) return;
 
-    _chatHistory[DateTime.now()] = {
+    final safeImagePath = await _persistImageLocally(image?.path);
+
+    final requestKey = DateTime.now();
+    _chatHistory[requestKey] = {
       'text': text,
       'isUser': isUser,
-      'imagePath': image?.path,
+      'imagePath': safeImagePath,
     };
     notifyListeners();
 
     if (isUser) {
-      // Pass the image path here so the AI can process it
-      await _generateAIResponse(text, imagePath: image?.path);
+      await _generateAIResponse(text, imagePath: safeImagePath);
     }
   }
 
   Future<void> pickImage() async {
-    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+    final XFile? image = await _picker.pickImage(
+      source: ImageSource.gallery,
+      imageQuality: 70,
+      maxWidth: 1024,
+    );
+
     if (image != null) {
       sendMessage("Can you analyze this image?", isUser: true, image: image);
     }
